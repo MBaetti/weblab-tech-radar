@@ -1,0 +1,27 @@
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# Environment Variables (WICHTIG: Niemals Secrets committen)
+.env
+.env.local
+.env.*.local
+
+# Compiled Output (falls TypeScript verwendet wird)
+/dist
+/build
+
+# Testing & Coverage (Jest)
+/coverage
+
+# Logs
+*.log
+logs
+*.pid
+*.seed
+*.pid.lock
+
+# System Files
+.DS_Store
+Thumbs.db
