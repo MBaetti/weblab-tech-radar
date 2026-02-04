@@ -1,0 +1,13 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+[[section-conclusion]]
+== Fazit
+
+ifdef::arc42help[]
+[role="arc42help"]
+****
+- Was ist gut gelaufen?
+- Wo lagen die Herausforderungen?
+- Was würden Sie das nächste Mal anders resp. besser machen?
+****
+endif::arc42help[]

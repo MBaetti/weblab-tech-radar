@@ -122,6 +122,13 @@ Als Mitarbeiter kann ich mich am Technologie-Radar-Viewer anmelden, damit ich di
 * Sämtliche Anmeldungen an die **Technologie-Radar-Administration** werden aufgezeichnet.
 * Die Funktionalitäten sollen mittels sinnvollen automatisierten **Unit/Integration-Tests** überprüft werden.
 
+=== Artefakte
+
+- Architekturdokumentation
+- Fazit & Reflexion
+- Arbeitsjournal
+- Softwareartefakte
+
 === Stakeholder
 
 [cols="1,1,1,2" options="header"]
