@@ -63,7 +63,3 @@ include::src/12_conclusion.adoc[]
 <<<<
 // 13. Arbeitsjournal
 include::src/13_work_journal.adoc[]
-
-<<<<
-// 14. Glossar
-include::src/14_glossary.adoc[]

@@ -6,6 +6,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 [cols="1,1,3" options="header"]
 |===
 |Datum |Stunden | Tätigkeiten
-|02.04.2026 |2 |Repo mit Client(angular) und Dokumentation(arc42 mit asciidoc) initialisiert
-|*Total* |2 |Von geforderten 60 Stunden
+|04.02.2026 |2 |Repo mit Client(angular) und Dokumentation(arc42 mit asciidoc) initialisiert
+|05.02.2026 |3 |Server initialisiert (Express, Node.js), erste Endpunkte erstellt und e2e-Tests auf dem Client initialisiert (Cypress)
+|*Total* |*5* |*Von geforderten 60 Stunden*
 |===
