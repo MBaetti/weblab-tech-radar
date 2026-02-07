@@ -4,7 +4,7 @@ npm-debug.log
 yarn-error.log
 
 # Environment Variables (WICHTIG: Niemals Secrets committen)
-.env
+../.env
 .env.local
 .env.*.local
 
@@ -25,3 +25,9 @@ logs
 # System Files
 .DS_Store
 Thumbs.db
+
+# Prisma
+/generated/
+
+# Environment Variablen
+.env

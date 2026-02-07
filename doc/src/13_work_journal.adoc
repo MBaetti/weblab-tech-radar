@@ -8,5 +8,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 |Datum |Stunden | Tätigkeiten
 |04.02.2026 |2 |Repo mit Client(angular) und Dokumentation(arc42 mit asciidoc) initialisiert
 |05.02.2026 |3 |Server initialisiert (Express, Node.js), erste Endpunkte erstellt und e2e-Tests auf dem Client initialisiert (Cypress)
-|*Total* |*5* |*Von geforderten 60 Stunden*
+|06.02.2026 |4 |Form, um Technologien zu erfassen, erstellt und erste Validierungen implementiert.
+|*Total* |*8* |*Von geforderten 60 Stunden*
 |===

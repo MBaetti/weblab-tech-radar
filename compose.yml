@@ -1,0 +1,46 @@
+services:
+  # DB (PostgreSQL)
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: techradar
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # DB-GUI
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+
+  # Server
+  server:
+    build: ./server
+    environment:
+      DATABASE_URL: "postgresql://postgres:${DB_PASSWORD}@db:5432/techradar?schema=public"
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 3000:3000
+    command: >
+      sh -c "npx prisma generate && npx prisma db push && npx prisma db seed && npm run start"
+
+  # Client
+  client:
+    build: ./client
+    ports:
+      - 4200:4200
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    depends_on:
+      - server

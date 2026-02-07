@@ -1,6 +1,6 @@
 export enum TechCategory {
-  Techniken = 'Techniken',
-  Werkzeuge = 'Werkzeuge',
-  Plattformen = 'Plattformen',
-  SprachenUndFrameworks = 'Sprachen & Frameworks'
+  technique = 'Technik',
+  tool = 'Werkzeug',
+  plattform = 'Plattform',
+  languageOrFramework = 'Sprache oder Framework'
 }

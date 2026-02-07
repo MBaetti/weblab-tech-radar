@@ -8,6 +8,14 @@ Tech-Radar im Rahmen des Moduls Web Programming Lab an der HSLU Informatik im He
 
 Die Dokumentation zu diesem Projekt befindet sich unter /doc im Repository.
 
+# Stack hochfahren
+
+Führe den folgenden Befehl aus, um sowohl den Client als auch den Server gleichzeitig zu starten:
+
+```bash
+docker-compose up -d
+```
+
 # Client
 
 **Angular**
