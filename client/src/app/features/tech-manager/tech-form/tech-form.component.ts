@@ -13,12 +13,12 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
-import {TechApiService} from '../../../../global_services/tech-api/tech-api.service';
-import {TechCategory} from '../../../../types/tech_category';
-import {TechRing} from '../../../../types/tech_ring';
+import {TechApiService} from '../../../global-services/tech-api/tech-api.service';
+import {TechCategory} from '../../../types/tech-category';
+import {TechRing} from '../../../types/tech-ring';
 
 @Component({
-  selector: 'form-component',
+  selector: 'tech-form-component',
   standalone: true,
   imports: [
     FormsModule,
@@ -114,7 +114,7 @@ import {TechRing} from '../../../../types/tech_ring';
     }
   `,
 })
-export class FromComponent {
+export class TechFromComponent {
   protected nameFormControl: FormControl = new FormControl('', [Validators.required]);
   protected categoryFormControl: FormControl = new FormControl('', [Validators.required]);
   protected readonly categories: string[] = Object.values(TechCategory);
