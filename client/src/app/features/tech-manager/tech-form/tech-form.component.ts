@@ -14,8 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDialogModule} from '@angular/material/dialog';
 import {TechApiService} from '../../../global-services/tech-api/tech-api.service';
-import {TechCategory} from '../../../types/tech-category';
-import {TechRing} from '../../../types/tech-ring';
+import {TechRing, TechCategory, TechCategoryLabels, TechRingLabels} from '../../../types/technology-entry';
 
 @Component({
   selector: 'tech-form-component',
@@ -46,7 +45,7 @@ import {TechRing} from '../../../types/tech-ring';
         <mat-label>Kategorie</mat-label>
         <mat-select type="text" [formControl]="categoryFormControl" [errorStateMatcher]="matcher">
           @for (category of categories; track category) {
-            <mat-option [value]="category">{{ category }}</mat-option>
+            <mat-option [value]="category">{{ getCategoryLabel(category) }}</mat-option>
           }
         </mat-select>
         @if (categoryFormControl.hasError('required')) {
@@ -60,7 +59,7 @@ import {TechRing} from '../../../types/tech-ring';
         <mat-label>Ring</mat-label>
         <mat-select type="text" [formControl]="ringFormControl" [errorStateMatcher]="matcher">
           @for (ring of rings; track ring) {
-            <mat-option [value]="ring">{{ ring }}</mat-option>
+            <mat-option [value]="ring">{{ getRingLabel(ring) }}</mat-option>
           }
         </mat-select>
         @if (ringFormControl.hasError('required')) {
@@ -117,14 +116,22 @@ import {TechRing} from '../../../types/tech-ring';
 export class TechFromComponent {
   protected nameFormControl: FormControl = new FormControl('', [Validators.required]);
   protected categoryFormControl: FormControl = new FormControl('', [Validators.required]);
-  protected readonly categories: string[] = Object.values(TechCategory);
+  protected readonly categories: TechCategory[] = Object.values(TechCategory);
   protected ringFormControl: FormControl = new FormControl('', [Validators.required]);
-  protected readonly rings: string[] = Object.values(TechRing);
+  protected readonly rings: TechRing[] = Object.values(TechRing);
   protected descriptionFormControl: FormControl = new FormControl('', [Validators.required]);
   protected classificationFormControl: FormControl = new FormControl('', [Validators.required]);
   protected submitError: WritableSignal<string> = signal('');
 
   constructor(private readonly techService: TechApiService) {}
+
+  protected getCategoryLabel(category: TechCategory): string {
+    return TechCategoryLabels[category];
+  }
+
+  protected getRingLabel(ring: TechRing): string {
+    return TechRingLabels[ring];
+  }
 
   technologyFormGroup: FormGroup = new FormGroup({
     name: this.nameFormControl,
@@ -138,7 +145,7 @@ export class TechFromComponent {
 
   submitTechnology(technologyForm: FormGroup): void {
     if (this.technologyFormGroup.valid) {
-      this.techService.submitTechnology(technologyForm.value).subscribe({
+      this.techService.createTechnology(technologyForm.value).subscribe({
         next: res => {
           this.submitError.set('');
           this.technologyFormGroup.reset();

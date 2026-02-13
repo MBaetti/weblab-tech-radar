@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
 import {getPointInSegment} from '../service/tech-radar-position.service';
-import {TechCategory} from '../../../../types/tech-category';
-import {TechRing} from '../../../../types/tech-ring';
+import {TechRing, TechCategory, TechnologyEntry, TechCategoryLabels, TechRingLabels} from '../../../../types/technology-entry';
+import {TechApiService} from '../../../../global-services/tech-api/tech-api.service';
 
 @Component({
   selector: 'tech-radar-component',
@@ -14,12 +14,19 @@ import {TechRing} from '../../../../types/tech-ring';
 })
 export class TechRadarComponent implements OnInit {
   @ViewChild('radarContainer', { static: true }) container!: ElementRef;
+  private readonly techApiService;
 
-  ngOnInit() :void {
-    this.drawRadar();
+  public constructor(techApiService: TechApiService) {
+    this.techApiService = techApiService;
   }
 
-  private drawRadar() :void {
+  ngOnInit() :void {
+    this.techApiService.getTechnologies().subscribe(technologies => {
+      this.drawRadar(technologies);
+    });
+  }
+
+  private drawRadar(technologies: TechnologyEntry[]) :void {
     const quadrantLabels :TechCategory[] = Object.values(TechCategory);
     const ringLabels :TechRing[] = Object.values(TechRing);
     const nrOfRings :number = ringLabels.length;
@@ -27,11 +34,6 @@ export class TechRadarComponent implements OnInit {
     const center :number = width / 2;
     const radiusMax :number = 300;
     const ringWidth :number = radiusMax / nrOfRings;
-    const technology :Array<{ category: number; ring: number; name: string }> = [
-      { name: 'Tech A', category: 0, ring: 0 },
-      { name: 'Tech B', category: 1, ring: 1 },
-      { name: 'Tech C', category: 2, ring: 2 }
-    ];
 
     // SVG-Container
     const svg = d3.select(this.container.nativeElement)
@@ -57,7 +59,7 @@ export class TechRadarComponent implements OnInit {
         .attr('y', center - 5)
         .style('font-size', '12px')
         .style('fill', '#666')
-        .text(ringLabels[i]);
+        .text(TechRingLabels[ringLabels[i]]);
     }
 
     // Quadranten
@@ -89,16 +91,16 @@ export class TechRadarComponent implements OnInit {
         .style('font-size', '14px')
         .style('font-weight', 'bold')
         .style('fill', '#333')
-        .text(quadrantLabels[i]);
+        .text(TechCategoryLabels[quadrantLabels[i]]);
     }
 
     // Technologiepunkte
     const nodes = svg.selectAll('.technologies')
-      .data(technology)
+      .data(technologies)
       .enter()
       .append('g')
       .attr('class', 'technologies')
-      .attr('transform', (d: { name: string; category: number; ring: number; }) => {
+      .attr('transform', (d: TechnologyEntry) => {
         const pos = getPointInSegment(d.category, d.ring, radiusMax);
         return `translate(${center + pos.x}, ${center - pos.y})`;
       });
@@ -110,7 +112,7 @@ export class TechRadarComponent implements OnInit {
 
     // Technologie-Text
     nodes.append('text')
-      .text((d: { name: string; category: number; ring: number; }) => d.name)
+      .text((d: TechnologyEntry) => d.name)
       .attr('dy', -10)
       .attr('text-anchor', 'middle')
       .style('font-size', '10px');

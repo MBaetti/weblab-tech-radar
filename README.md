@@ -119,3 +119,7 @@ Führe den folgenden Befehl aus, um den Server zu starten:
 cd server
 npm start
 ```
+
+# Environment
+
+Als .env-Datei im Root-Verzeichnis für Docker-Compose.

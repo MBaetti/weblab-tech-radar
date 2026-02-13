@@ -1,7 +1,7 @@
 import { prisma } from './prisma/prisma'
 
 async function main() {
-    const technology = await prisma.technology.create({
+    const technology = await prisma.technologyEntry.create({
         data: {
             name: 'Beispiel-Technologie',
             category: 'tool',
@@ -12,7 +12,7 @@ async function main() {
     })
     console.log('Created technology:', technology)
 
-    const allTechnologies = await prisma.technology.findMany()
+    const allTechnologies = await prisma.technologyEntry.findMany()
     console.log('All technologies:', JSON.stringify(allTechnologies, null, 2))
 }
 

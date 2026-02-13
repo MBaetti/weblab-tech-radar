@@ -1,15 +1,14 @@
 import express from 'express';
-import itemRoutes from './routes/routes';
-import { errorHandler } from './middlewares/errorHandler';
+import technologyRoutes from './routes/technology-routes';
+import { errorHandler } from './middlewares/error-handler';
 
 const app = express();
 
 app.use(express.json());
 
 // Routes
-app.use('/api/', itemRoutes);
+app.use('/api/technologies', technologyRoutes);
 
-// Global error handler (should be after routes)
 app.use(errorHandler);
 
 export default app;

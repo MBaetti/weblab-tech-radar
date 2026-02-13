@@ -7,14 +7,14 @@ datasource db {
   provider = "postgresql"
 }
 
-model Technology {
-  id              Int           @id @default(autoincrement())
-  name            String        @unique
-  category        TechCategory
-  ring            TechRing
-  description     String
-  classification  String
-  date            DateTime      @default(now())
+model TechnologyEntry {
+  id             Int          @id @default(autoincrement())
+  name           String       @unique
+  category       TechCategory
+  ring           TechRing
+  description    String
+  classification String
+  date           DateTime     @default(now())
 }
 
 enum TechCategory {

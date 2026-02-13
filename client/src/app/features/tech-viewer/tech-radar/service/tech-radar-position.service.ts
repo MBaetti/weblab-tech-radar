@@ -1,6 +1,12 @@
+import { TechCategory, TechRing } from '../../../../types/technology-entry';
+
 export interface Point { x: number; y: number; }
 
-export function getPointInSegment(quadrant: number, ringIndex: number, radiusMax: number): Point {
+export function getPointInSegment(category: TechCategory, ring: TechRing, radiusMax: number): Point {
+  // Konvertiere Enums zu Indizes
+  const quadrant = Object.values(TechCategory).indexOf(category);
+  const ringIndex = Object.values(TechRing).indexOf(ring);
+
   // 1. Definiere die Grenzen des Rings (z.B. Ring 0 ist von 0 bis 100px)
   const ringWidth = radiusMax / 4;
   const minRadius = ringIndex * ringWidth + 10;

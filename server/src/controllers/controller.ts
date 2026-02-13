@@ -1,29 +1,82 @@
 import { Request, Response, NextFunction } from 'express';
-import { items, Item } from '../models/item';
+import { prisma } from '../../prisma/prisma';
+import { TechCategory, TechRing} from '../../generated/prisma/enums';
 
-// Create an item
-export const createItem = (req: Request, res: Response, next: NextFunction) => {
+const isTechCategory = (value: unknown): value is TechCategory =>
+    typeof value === 'string' && Object.values(TechCategory).includes(value as TechCategory);
+
+const isTechRing = (value: unknown): value is TechRing =>
+    typeof value === 'string' && Object.values(TechRing).includes(value as TechRing);
+
+const parseDate = (value: unknown): Date | null => {
+    if (value instanceof Date && !Number.isNaN(value.getTime())) {
+        return value;
+    }
+    if (typeof value === 'string' || typeof value === 'number') {
+        const parsed = new Date(value);
+        if (!Number.isNaN(parsed.getTime())) {
+            return parsed;
+        }
+    }
+    return null;
+};
+
+export const createTechnology = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { name } = req.body;
-        const newItem: Item = { id: Date.now(), name };
-        items.push(newItem);
-        res.status(201).json(newItem);
+        const { name, category, ring, description, classification, date } = req.body;
+        if (typeof name !== 'string' || name.trim().length === 0) {
+            res.status(400).json({ message: 'Invalid name' });
+            return;
+        }
+        if (!isTechCategory(category)) {
+            res.status(400).json({ message: 'Invalid category' });
+            return;
+        }
+        if (!isTechRing(ring)) {
+            res.status(400).json({ message: 'Invalid ring' });
+            return;
+        }
+        if (typeof description !== 'string' || description.trim().length === 0) {
+            res.status(400).json({ message: 'Invalid description' });
+            return;
+        }
+        if (typeof classification !== 'string' || classification.trim().length === 0) {
+            res.status(400).json({ message: 'Invalid classification' });
+            return;
+        }
+        const parsedDate = date === undefined ? new Date() : parseDate(date);
+        if (!parsedDate) {
+            res.status(400).json({ message: 'Invalid date' });
+            return;
+        }
+
+        const newTechnology = await prisma.technologyEntry.create({
+            data: {
+                name: name.trim(),
+                category: category,
+                ring: ring,
+                description: description.trim(),
+                classification: classification.trim(),
+                date: parsedDate,
+            },
+        });
+
+        res.status(201).json(newTechnology);
     } catch (error) {
         next(error);
     }
 };
 
-// Read all items
-export const getItems = (req: Request, res: Response, next: NextFunction) => {
+export const getTechnologies = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.json(items);
+        const technologies = await prisma.technologyEntry.findMany();
+        res.json(technologies);
     } catch (error) {
         next(error);
     }
 };
 
-// Read single item
-export const getItemById = (req: Request, res: Response, next: NextFunction) => {
+export const getTechnologyById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const rawId = req.params['id'];
         const idStr = Array.isArray(rawId) ? rawId[0] : rawId;
@@ -32,19 +85,22 @@ export const getItemById = (req: Request, res: Response, next: NextFunction) => 
             res.status(400).json({ message: 'Invalid id parameter' });
             return;
         }
-        const item = items.find((i) => i.id === id);
-        if (!item) {
-            res.status(404).json({ message: 'Item not found' });
+
+        const technology = await prisma.technologyEntry.findUnique({
+            where: { id },
+        });
+
+        if (!technology) {
+            res.status(404).json({ message: 'Technology not found' });
             return;
         }
-        res.json(item);
+        res.json(technology);
     } catch (error) {
         next(error);
     }
 };
 
-// Update an item
-export const updateItem = (req: Request, res: Response, next: NextFunction) => {
+export const updateTechnology = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const rawId = req.params['id'];
         const idStr = Array.isArray(rawId) ? rawId[0] : rawId;
@@ -53,21 +109,72 @@ export const updateItem = (req: Request, res: Response, next: NextFunction) => {
             res.status(400).json({ message: 'Invalid id parameter' });
             return;
         }
-        const { name } = req.body;
-        const itemIndex = items.findIndex((i) => i.id === id);
-        if (itemIndex === -1) {
-            res.status(404).json({ message: 'Item not found' });
+        const { name, category, ring, description, classification, date } = req.body;
+
+        if (!technologyExists) {
+            res.status(404).json({ message: 'Technology not found' });
             return;
         }
-        items[itemIndex].name = name;
-        res.json(items[itemIndex]);
+
+        // Baue data-Objekt mit Validierung
+        const data: any = {};
+
+        if (name !== undefined) {
+            if (typeof name !== 'string' || name.trim().length === 0) {
+                res.status(400).json({ message: 'Invalid name' });
+                return;
+            }
+            data.name = name.trim();
+        }
+        if (category !== undefined) {
+            if (!isTechCategory(category)) {
+                res.status(400).json({ message: 'Invalid category' });
+                return;
+            }
+            data.category = category;
+        }
+        if (ring !== undefined) {
+            if (!isTechRing(ring)) {
+                res.status(400).json({ message: 'Invalid ring' });
+                return;
+            }
+            data.ring = ring;
+        }
+        if (description !== undefined) {
+            if (typeof description !== 'string' || description.trim().length === 0) {
+                res.status(400).json({ message: 'Invalid description' });
+                return;
+            }
+            data.description = description.trim();
+        }
+        if (classification !== undefined) {
+            if (typeof classification !== 'string' || classification.trim().length === 0) {
+                res.status(400).json({ message: 'Invalid classification' });
+                return;
+            }
+            data.classification = classification.trim();
+        }
+        if (date !== undefined) {
+            const parsedDate = parseDate(date);
+            if (!parsedDate) {
+                res.status(400).json({ message: 'Invalid date' });
+                return;
+            }
+            data.date = parsedDate;
+        }
+
+        const updatedTechnology = await prisma.technologyEntry.update({
+            where: { id },
+            data,
+        });
+
+        res.json(updatedTechnology);
     } catch (error) {
         next(error);
     }
 };
 
-// Delete an item
-export const deleteItem = (req: Request, res: Response, next: NextFunction) => {
+export const deleteTechnology = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const rawId = req.params['id'];
         const idStr = Array.isArray(rawId) ? rawId[0] : rawId;
@@ -76,14 +183,22 @@ export const deleteItem = (req: Request, res: Response, next: NextFunction) => {
             res.status(400).json({ message: 'Invalid id parameter' });
             return;
         }
-        const itemIndex = items.findIndex((i) => i.id === id);
-        if (itemIndex === -1) {
-            res.status(404).json({ message: 'Item not found' });
+
+        if (!technologyExists) {
+            res.status(404).json({ message: 'Technology not found' });
             return;
         }
-        const deletedItem = items.splice(itemIndex, 1)[0];
-        res.json(deletedItem);
+
+        const deletedTechnology = await prisma.technologyEntry.delete({
+            where: { id },
+        });
+
+        res.json(deletedTechnology);
     } catch (error) {
         next(error);
     }
 };
+
+async function technologyExists(id: number) {
+    return prisma.technologyEntry.findUnique({where: {id}});
+}

@@ -1,0 +1,59 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+[[section-work-journal]]
+== Nützliche Befehle
+
+=== Ganzer Stack
+
+==== Docker-Compose
+
+[cols="1,1" options="header"]
+|===
+|Tätigkeit |Befehl
+|Docker-Compose-Container starten |`docker-compose up`
+|===
+
+=== Client
+
+==== Angular
+
+[cols="1,1" options="header"]
+|===
+|Tätigkeit |Befehl
+|Angular-Entwicklungsserver starten |`ng serve`
+|Komponente generieren |`ng generate component <component-name>`
+|Service generieren |`ng generate service <service-name>`
+|Tests ausführen |`ng test`
+|End-to-End-Tests ausführen |`ng e2e`
+|===
+
+=== Server
+
+==== Node.js
+
+[cols="1,1" options="header"]
+|===
+|Tätigkeit |Befehl
+|Node.js-Server starten |`npm start`
+|===
+
+==== PostgreSQL
+
+[cols="1,1" options="header"]
+|===
+|Tätigkeit |Befehl
+|PostgreSQL-Image herunterladen |`docker pull postgres`
+|PostgreSQL-Docker-Container starten |`docker run --name techradar -d -p 5432:5432 -e POSTGRES_PASSWORD=8CiENLxvAVHqQGQnbFBu postgres`
+|===
+
+==== Prisma
+
+[cols="1,1" options="header"]
+|===
+|Tätigkeit |Befehl
+|Prisma Client generieren |`npx prisma generate`
+|Schema-Status prüfen |`npx prisma validate`
+|Datenbank-Schema initialisieren |`npx prisma db push`
+|Datenbank-Seed ausführen |`npx prisma db seed`
+|Prisma Studio (GUI) öffnen |`npx prisma studio`
+|===
