@@ -10,7 +10,7 @@ import {TechListComponent} from '../../features/tech-manager/tech-list/tech-list
     TechListComponent
   ],
   template: `
-    <h1>Technologie-Manager</h1>
+    <h1>Technologie-Administration</h1>
     <div class="tech-form">
       <h2>Technologie erfassen</h2>
       <p>Hier können neue Technologien erfasst werden.</p>
@@ -24,6 +24,6 @@ import {TechListComponent} from '../../features/tech-manager/tech-list/tech-list
   `,
   styles: ``,
 })
-export class TechManagerComponent {
+export class TechAdministrationComponent {
   protected readonly email = email;
 }

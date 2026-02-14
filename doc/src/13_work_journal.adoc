@@ -11,5 +11,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 |06.02.2026 |4 |Form, um Technologien zu erfassen, erstellt und erste Validierungen implementiert.
 |07.02.2026 |4 |Prisma initial auf dem Server implementiert.
 |08.02.2026 |4 |List, um erfasste Technologien anzuzeigen, erstellt und Technologieradar implementiert.
-|*Total* |*17* |*Von geforderten 60 Stunden*
+|13.02.2026 |8 |Prisma mit PostgreSQL verbunden und erste Datenbankabfragen(get) für Viewer(Radar) und Manager(List) implementiert.
+|*Total* |*25* |*Von geforderten 60 Stunden*
 |===

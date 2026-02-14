@@ -57,3 +57,13 @@ ifndef::imagesdir[:imagesdir: ../images]
 |Datenbank-Seed ausführen |`npx prisma db seed`
 |Prisma Studio (GUI) öffnen |`npx prisma studio`
 |===
+
+=== Testing
+
+==== e2e mit Cypress
+
+[cols="1,1" options="header"]
+|===
+|Tätigkeit |Befehl
+|Cypress-Umgebung öffnen ausführen |`npx cypress open`
+|===

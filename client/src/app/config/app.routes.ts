@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { RadarViewerComponent } from '../pages/radar-viewer/radar-viewer.component';
-import { TechManagerComponent } from '../pages/tech-manager/tech-manager.component';
+import { TechAdministrationComponent } from '../pages/tech-administration/tech-administration.component';
 
 export const routes: Routes = [
   { path: 'viewer', component: RadarViewerComponent },
-  { path: 'manager', component: TechManagerComponent },
+  { path: 'manager', component: TechAdministrationComponent },
   { path: '**', redirectTo: 'viewer' }
 ];

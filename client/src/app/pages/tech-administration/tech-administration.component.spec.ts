@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TechManagerComponent } from './tech-manager.component';
+import { TechAdministrationComponent } from './tech-administration.component';
 
 describe('RadarManagerComponent', () => {
-  let component: TechManagerComponent;
-  let fixture: ComponentFixture<TechManagerComponent>;
+  let component: TechAdministrationComponent;
+  let fixture: ComponentFixture<TechAdministrationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TechManagerComponent]
+      imports: [TechAdministrationComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TechManagerComponent);
+    fixture = TestBed.createComponent(TechAdministrationComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
