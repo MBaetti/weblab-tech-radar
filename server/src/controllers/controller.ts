@@ -23,7 +23,7 @@ const parseDate = (value: unknown): Date | null => {
 
 export const createTechnology = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { name, category, ring, description, classification, date } = req.body;
+        const { name, category, ring, description, classification, entryDate } = req.body;
         if (typeof name !== 'string' || name.trim().length === 0) {
             res.status(400).json({ message: 'Invalid name' });
             return;
@@ -32,7 +32,8 @@ export const createTechnology = async (req: Request, res: Response, next: NextFu
             res.status(400).json({ message: 'Invalid category' });
             return;
         }
-        if (!isTechRing(ring)) {
+        // Optional
+        if (ring !== undefined && !isTechRing(ring)) {
             res.status(400).json({ message: 'Invalid ring' });
             return;
         }
@@ -40,13 +41,14 @@ export const createTechnology = async (req: Request, res: Response, next: NextFu
             res.status(400).json({ message: 'Invalid description' });
             return;
         }
-        if (typeof classification !== 'string' || classification.trim().length === 0) {
+        // Optional
+        if (classification !== undefined && (typeof classification !== 'string' || classification.trim().length === 0)) {
             res.status(400).json({ message: 'Invalid classification' });
             return;
         }
-        const parsedDate = date === undefined ? new Date() : parseDate(date);
+        const parsedDate = entryDate === undefined ? new Date() : parseDate(entryDate);
         if (!parsedDate) {
-            res.status(400).json({ message: 'Invalid date' });
+            res.status(400).json({ message: 'Invalid entryDate' });
             return;
         }
 
@@ -56,8 +58,8 @@ export const createTechnology = async (req: Request, res: Response, next: NextFu
                 category: category,
                 ring: ring,
                 description: description.trim(),
-                classification: classification.trim(),
-                date: parsedDate,
+                classification: classification,
+                entryDate: parsedDate,
             },
         });
 
@@ -82,7 +84,7 @@ export const getTechnologyById = async (req: Request, res: Response, next: NextF
         const idStr = Array.isArray(rawId) ? rawId[0] : rawId;
         const id = Number.parseInt(idStr, 10);
         if (Number.isNaN(id)) {
-            res.status(400).json({ message: 'Invalid id parameter' });
+            res.status(400).json({ message: 'Ungültige ID' });
             return;
         }
 
@@ -91,7 +93,7 @@ export const getTechnologyById = async (req: Request, res: Response, next: NextF
         });
 
         if (!technology) {
-            res.status(404).json({ message: 'Technology not found' });
+            res.status(404).json({ message: 'Technologie nicht gefunden' });
             return;
         }
         res.json(technology);
@@ -106,61 +108,63 @@ export const updateTechnology = async (req: Request, res: Response, next: NextFu
         const idStr = Array.isArray(rawId) ? rawId[0] : rawId;
         const id = Number.parseInt(idStr, 10);
         if (Number.isNaN(id)) {
-            res.status(400).json({ message: 'Invalid id parameter' });
+            res.status(400).json({ message: 'Ungültige ID' });
             return;
         }
-        const { name, category, ring, description, classification, date } = req.body;
+        const { name, category, ring, description, classification, published } = req.body;
 
-        if (!technologyExists) {
-            res.status(404).json({ message: 'Technology not found' });
+        const existingTechnology = await technologyExists(id);
+        if (!existingTechnology) {
+            res.status(404).json({ message: 'Technologie nicht gefunden' });
             return;
         }
 
-        // Baue data-Objekt mit Validierung
         const data: any = {};
 
         if (name !== undefined) {
             if (typeof name !== 'string' || name.trim().length === 0) {
-                res.status(400).json({ message: 'Invalid name' });
+                res.status(400).json({ message: 'Ungültiger Name' });
                 return;
             }
             data.name = name.trim();
         }
         if (category !== undefined) {
             if (!isTechCategory(category)) {
-                res.status(400).json({ message: 'Invalid category' });
+                res.status(400).json({ message: 'Ungültige Kategorie' });
                 return;
             }
             data.category = category;
         }
         if (ring !== undefined) {
             if (!isTechRing(ring)) {
-                res.status(400).json({ message: 'Invalid ring' });
+                res.status(400).json({ message: 'Ungültiger Ring' });
                 return;
             }
             data.ring = ring;
         }
         if (description !== undefined) {
             if (typeof description !== 'string' || description.trim().length === 0) {
-                res.status(400).json({ message: 'Invalid description' });
+                res.status(400).json({ message: 'Ungültige Beschreibung' });
                 return;
             }
             data.description = description.trim();
         }
         if (classification !== undefined) {
             if (typeof classification !== 'string' || classification.trim().length === 0) {
-                res.status(400).json({ message: 'Invalid classification' });
+                res.status(400).json({ message: 'Ungültige Klassifizierung' });
                 return;
             }
             data.classification = classification.trim();
         }
-        if (date !== undefined) {
-            const parsedDate = parseDate(date);
-            if (!parsedDate) {
-                res.status(400).json({ message: 'Invalid date' });
+        if (published !== undefined) {
+            if (typeof published !== 'boolean') {
+                res.status(400).json({ message: 'Ungültiger Publish-Wert' });
                 return;
             }
-            data.date = parsedDate;
+            data.published = published;
+            if (published === true && !existingTechnology.publicationDate) {
+                data.publicationDate = new Date();
+            }
         }
 
         const updatedTechnology = await prisma.technologyEntry.update({
@@ -180,12 +184,13 @@ export const deleteTechnology = async (req: Request, res: Response, next: NextFu
         const idStr = Array.isArray(rawId) ? rawId[0] : rawId;
         const id = Number.parseInt(idStr, 10);
         if (Number.isNaN(id)) {
-            res.status(400).json({ message: 'Invalid id parameter' });
+            res.status(400).json({ message: 'Ungültige ID' });
             return;
         }
 
-        if (!technologyExists) {
-            res.status(404).json({ message: 'Technology not found' });
+        const existingTechnology = await technologyExists(id);
+        if (!existingTechnology) {
+            res.status(404).json({ message: 'Technologie nicht gefunden' });
             return;
         }
 

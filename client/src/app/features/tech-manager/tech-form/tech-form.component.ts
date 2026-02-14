@@ -62,16 +62,13 @@ import {TechRing, TechCategory, TechCategoryLabels, TechRingLabels} from '../../
             <mat-option [value]="ring">{{ getRingLabel(ring) }}</mat-option>
           }
         </mat-select>
-        @if (ringFormControl.hasError('required')) {
-          <mat-error>Bitte wähle einen Ring aus.</mat-error>
-        }
       </mat-form-field>
 
       <p></p>
 
       <mat-form-field class="form-field">
         <mat-label>Beschreibung der Technologie</mat-label>
-        <textarea type="text" matInput [formControl]="descriptionFormControl" [errorStateMatcher]="matcher"></textarea>
+        <textarea type="text" matInput [formControl]="descriptionFormControl"></textarea>
         <mat-hint>Z.B. Argo CD ist ein deklaratives GitOps-Tool für...</mat-hint>
         @if (descriptionFormControl.hasError('required')) {
           <mat-error>Bitte gib eine Beschreibung der Technologie an.</mat-error>
@@ -82,16 +79,13 @@ import {TechRing, TechCategory, TechCategoryLabels, TechRingLabels} from '../../
 
       <mat-form-field class="form-field">
         <mat-label>Einordnung der Technologie</mat-label>
-        <textarea type="text" matInput [formControl]="classificationFormControl" [errorStateMatcher]="matcher"></textarea>
+        <textarea type="text" matInput [formControl]="classificationFormControl"></textarea>
         <mat-hint>Z.B. Ohne die GitOps-Technik zu bewerten...</mat-hint>
-        @if (classificationFormControl.hasError('required')) {
-          <mat-error>Bitte gib deine Einordnung der Technologie an.</mat-error>
-        }
       </mat-form-field>
 
       <p></p>
 
-      <button mat-button type="submit" [disabled]="!technologyFormGroup.valid">Speichern</button>
+      <button mat-button type="submit" [disabled]="!technologyFormGroup.valid">Technologie erfassen</button>
       @if (submitError() !== '') {
         <div class="submit-error">{{ submitError() }}</div>
       }
@@ -117,10 +111,10 @@ export class TechFromComponent {
   protected nameFormControl: FormControl = new FormControl('', [Validators.required]);
   protected categoryFormControl: FormControl = new FormControl('', [Validators.required]);
   protected readonly categories: TechCategory[] = Object.values(TechCategory);
-  protected ringFormControl: FormControl = new FormControl('', [Validators.required]);
+  protected ringFormControl: FormControl = new FormControl('');
   protected readonly rings: TechRing[] = Object.values(TechRing);
   protected descriptionFormControl: FormControl = new FormControl('', [Validators.required]);
-  protected classificationFormControl: FormControl = new FormControl('', [Validators.required]);
+  protected classificationFormControl: FormControl = new FormControl('');
   protected submitError: WritableSignal<string> = signal('');
 
   constructor(private readonly techService: TechApiService) {}

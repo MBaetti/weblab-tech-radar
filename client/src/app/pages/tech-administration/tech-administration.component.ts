@@ -17,8 +17,8 @@ import {TechListComponent} from '../../features/tech-manager/tech-list/tech-list
       <tech-form-component></tech-form-component>
     </div>
     <div class="tech-list">
-      <h2>Erfasste Technologien</h2>
-      <p>Hier wird die Liste an erfassten Technologien angezeigt.</p>
+      <h2>Erfasste/publizierte Technologien</h2>
+      <p>Hier werden erfasste und publizierte Technologien angezeigt.</p>
       <tech-list-component></tech-list-component>
     </div>
   `,

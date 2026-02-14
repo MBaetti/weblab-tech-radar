@@ -8,13 +8,16 @@ datasource db {
 }
 
 model TechnologyEntry {
-  id             Int          @id @default(autoincrement())
-  name           String       @unique
-  category       TechCategory
-  ring           TechRing
-  description    String
-  classification String
-  date           DateTime     @default(now())
+  id              Int          @id @default(autoincrement())
+  name            String       @unique
+  category        TechCategory
+  ring            TechRing?
+  description     String
+  classification  String?
+  entryDate       DateTime     @default(now())
+  changeDate      DateTime     @updatedAt
+  published       Boolean      @default(false)
+  publicationDate DateTime?
 }
 
 enum TechCategory {

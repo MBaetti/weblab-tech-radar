@@ -41,9 +41,24 @@ import {TechApiService} from '../../../global-services/tech-api/tech-api.service
         <td mat-cell *matCellDef="let element"> {{ element.classification }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="date">
-        <th mat-header-cell *matHeaderCellDef> Datum</th>
-        <td mat-cell *matCellDef="let element"> {{ element.date | date:'short' }}</td>
+      <ng-container matColumnDef="entryDate">
+        <th mat-header-cell *matHeaderCellDef> Erfassungsdatum</th>
+        <td mat-cell *matCellDef="let element"> {{ element.entryDate | date:'short' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="changeDate">
+        <th mat-header-cell *matHeaderCellDef> Änderungsdatum</th>
+        <td mat-cell *matCellDef="let element"> {{ element.changeDate | date:'short' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="published">
+        <th mat-header-cell *matHeaderCellDef> Publiziert</th>
+        <td mat-cell *matCellDef="let element"> {{ element.published }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="publicationDate">
+        <th mat-header-cell *matHeaderCellDef> Publikationsdatum</th>
+        <td mat-cell *matCellDef="let element"> {{ element.publicationDate | date:'short' }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -55,7 +70,7 @@ import {TechApiService} from '../../../global-services/tech-api/tech-api.service
 export class TechListComponent implements OnInit {
   private readonly techApiService;
   private readonly cdr: ChangeDetectorRef;
-  displayedColumns: string[] = ['id', 'name', 'category', 'ring', 'description', 'classification', 'date'];
+  displayedColumns: string[] = ['id', 'name', 'category', 'ring', 'description', 'classification', 'entryDate', 'changeDate', 'published', 'publicationDate'];
   dataSource: TechnologyEntry[] = [];
 
   public constructor(techApiService: TechApiService, cdr: ChangeDetectorRef) {

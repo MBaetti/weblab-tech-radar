@@ -5,7 +5,10 @@ export interface TechnologyEntry {
   ring: TechRing;
   description: string;
   classification: string;
-  date: Date;
+  entryDate: Date;
+  changeDate: Date;
+  published: boolean;
+  publicationDate: Date;
 }
 
 export enum TechCategory {
@@ -22,7 +25,7 @@ export enum TechRing {
   hold = 'hold'
 }
 
-// Helper-Funktionen für deutsche Labels
+// Deutsche Labels
 export const TechCategoryLabels: Record<TechCategory, string> = {
   [TechCategory.technique]: 'Technik',
   [TechCategory.tool]: 'Werkzeug',
