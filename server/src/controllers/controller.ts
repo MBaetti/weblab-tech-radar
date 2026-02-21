@@ -23,32 +23,32 @@ const parseDate = (value: unknown): Date | null => {
 
 export const createTechnology = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { name, category, ring, description, classification, entryDate } = req.body;
+        const { name, category, ring, description, classification } = req.body;
         if (typeof name !== 'string' || name.trim().length === 0) {
-            res.status(400).json({ message: 'Invalid name' });
+            res.status(400).json({ message: 'Ungültiger Name' });
+            return;
+        }
+        const nameExists: boolean = await technologyNameExists(name);
+        if (nameExists) {
+            res.status(409).json({ message: 'Technologie existiert bereits' });
             return;
         }
         if (!isTechCategory(category)) {
-            res.status(400).json({ message: 'Invalid category' });
+            res.status(400).json({ message: 'Ungültige Kategorie' });
             return;
         }
         // Optional
         if (ring !== undefined && !isTechRing(ring)) {
-            res.status(400).json({ message: 'Invalid ring' });
+            res.status(400).json({ message: 'Ungültiger Ring' });
             return;
         }
         if (typeof description !== 'string' || description.trim().length === 0) {
-            res.status(400).json({ message: 'Invalid description' });
+            res.status(400).json({ message: 'Ungültige Beschreibung' });
             return;
         }
         // Optional
         if (classification !== undefined && (typeof classification !== 'string' || classification.trim().length === 0)) {
-            res.status(400).json({ message: 'Invalid classification' });
-            return;
-        }
-        const parsedDate = entryDate === undefined ? new Date() : parseDate(entryDate);
-        if (!parsedDate) {
-            res.status(400).json({ message: 'Invalid entryDate' });
+            res.status(400).json({ message: 'Ungültige Klassifizierung' });
             return;
         }
 
@@ -59,7 +59,6 @@ export const createTechnology = async (req: Request, res: Response, next: NextFu
                 ring: ring,
                 description: description.trim(),
                 classification: classification,
-                entryDate: parsedDate,
             },
         });
 
@@ -80,9 +79,7 @@ export const getTechnologies = async (req: Request, res: Response, next: NextFun
 
 export const getTechnologyById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const rawId = req.params['id'];
-        const idStr = Array.isArray(rawId) ? rawId[0] : rawId;
-        const id = Number.parseInt(idStr, 10);
+        const id: number = extractIdFromRequest(req);
         if (Number.isNaN(id)) {
             res.status(400).json({ message: 'Ungültige ID' });
             return;
@@ -104,16 +101,14 @@ export const getTechnologyById = async (req: Request, res: Response, next: NextF
 
 export const updateTechnology = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const rawId = req.params['id'];
-        const idStr = Array.isArray(rawId) ? rawId[0] : rawId;
-        const id = Number.parseInt(idStr, 10);
+        const id: number = extractIdFromRequest(req);
         if (Number.isNaN(id)) {
             res.status(400).json({ message: 'Ungültige ID' });
             return;
         }
         const { name, category, ring, description, classification, published } = req.body;
 
-        const existingTechnology = await technologyExists(id);
+        const existingTechnology = await technologyById(id);
         if (!existingTechnology) {
             res.status(404).json({ message: 'Technologie nicht gefunden' });
             return;
@@ -180,15 +175,13 @@ export const updateTechnology = async (req: Request, res: Response, next: NextFu
 
 export const deleteTechnology = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const rawId = req.params['id'];
-        const idStr = Array.isArray(rawId) ? rawId[0] : rawId;
-        const id = Number.parseInt(idStr, 10);
+        const id: number = extractIdFromRequest(req);
         if (Number.isNaN(id)) {
             res.status(400).json({ message: 'Ungültige ID' });
             return;
         }
 
-        const existingTechnology = await technologyExists(id);
+        const existingTechnology = await technologyById(id);
         if (!existingTechnology) {
             res.status(404).json({ message: 'Technologie nicht gefunden' });
             return;
@@ -204,6 +197,16 @@ export const deleteTechnology = async (req: Request, res: Response, next: NextFu
     }
 };
 
-async function technologyExists(id: number) {
+async function technologyById(id: number) {
     return prisma.technologyEntry.findUnique({where: {id}});
+}
+
+async function technologyNameExists(name: string): Promise<boolean> {
+    return (await prisma.technologyEntry.findUnique({where: {name}})) != null;
+}
+
+function extractIdFromRequest(req: Request): number {
+    const rawId: string | string[] = req.params['id'];
+    const idStr: string = Array.isArray(rawId) ? rawId[0] : rawId;
+    return Number.parseInt(idStr, 10);
 }
