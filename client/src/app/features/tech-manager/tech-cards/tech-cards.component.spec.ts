@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TechListComponent } from './tech-list.component';
+import { TechCardsComponent } from './tech-cards.component';
 
 describe('TechListComponent', () => {
-  let component: TechListComponent;
-  let fixture: ComponentFixture<TechListComponent>;
+  let component: TechCardsComponent;
+  let fixture: ComponentFixture<TechCardsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TechListComponent]
+      imports: [TechCardsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TechListComponent);
+    fixture = TestBed.createComponent(TechCardsComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -20,3 +20,4 @@ describe('TechListComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
