@@ -29,7 +29,7 @@ import {TechRing, TechCategory, TechCategoryLabels, TechRingLabels} from '../../
     MatDialogModule
   ],
   template: `
-    <form class="form" [formGroup]="technologyFormGroup" (ngSubmit)="submitTechnology(technologyFormGroup)">
+    <form class="form" [formGroup]="technologyFormGroup" #formDirective="ngForm" (ngSubmit)="submitTechnology(technologyFormGroup, formDirective)">
       <mat-form-field class="form-field">
         <mat-label>Name</mat-label>
         <input type="text" matInput [formControl]="nameFormControl" [errorStateMatcher]="matcher">
@@ -38,8 +38,6 @@ import {TechRing, TechCategory, TechCategoryLabels, TechRingLabels} from '../../
           <mat-error>Bitte gib einen Technologienamen an.</mat-error>
         }
       </mat-form-field>
-
-      <p></p>
 
       <mat-form-field class="form-field">
         <mat-label>Kategorie</mat-label>
@@ -53,37 +51,30 @@ import {TechRing, TechCategory, TechCategoryLabels, TechRingLabels} from '../../
         }
       </mat-form-field>
 
-      <p></p>
-
       <mat-form-field class="form-field">
         <mat-label>Ring</mat-label>
-        <mat-select type="text" [formControl]="ringFormControl" [errorStateMatcher]="matcher">
+        <mat-select type="text" [formControl]="ringFormControl">
+          <mat-option>-- Kein Ring --</mat-option>
           @for (ring of rings; track ring) {
             <mat-option [value]="ring">{{ getRingLabel(ring) }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
 
-      <p></p>
-
       <mat-form-field class="form-field">
         <mat-label>Beschreibung der Technologie</mat-label>
-        <textarea type="text" matInput [formControl]="descriptionFormControl"></textarea>
+        <textarea type="text" matInput [formControl]="descriptionFormControl" cdkTextareaAutosize></textarea>
         <mat-hint>Z.B. Argo CD ist ein deklaratives GitOps-Tool für...</mat-hint>
         @if (descriptionFormControl.hasError('required')) {
           <mat-error>Bitte gib eine Beschreibung der Technologie an.</mat-error>
         }
       </mat-form-field>
 
-      <p></p>
-
       <mat-form-field class="form-field">
         <mat-label>Einordnung der Technologie</mat-label>
-        <textarea type="text" matInput [formControl]="classificationFormControl"></textarea>
+        <textarea type="text" matInput [formControl]="classificationFormControl" cdkTextareaAutosize></textarea>
         <mat-hint>Z.B. Ohne die GitOps-Technik zu bewerten...</mat-hint>
       </mat-form-field>
-
-      <p></p>
 
       <button mat-button type="submit" [disabled]="!technologyFormGroup.valid">Technologie erfassen</button>
       @if (submitError() !== '') {
@@ -93,9 +84,11 @@ import {TechRing, TechCategory, TechCategoryLabels, TechRingLabels} from '../../
   `,
   styles: `
     .form {
-      min-width: 150px;
-      max-width: 500px;
+      display: flex;
+      flex-direction: column;
       width: 100%;
+      max-width: 600px;
+      gap: 10px;
     }
 
     .form-field {
@@ -137,18 +130,28 @@ export class TechFromComponent {
 
   matcher: MyErrorStateMatcher = new MyErrorStateMatcher();
 
-  submitTechnology(technologyForm: FormGroup): void {
+  submitTechnology(technologyForm: FormGroup, formDirective: FormGroupDirective): void {
     if (this.technologyFormGroup.valid) {
+      if (this.ringFormControl.value === '-- Kein Ring --') {
+        this.ringFormControl.setValue('');
+      }
       this.techService.createTechnology(technologyForm.value).subscribe({
         next: res => {
           this.submitError.set('');
           this.technologyFormGroup.reset();
-          this.technologyFormGroup.markAsPristine();
-          this.technologyFormGroup.markAsUntouched();
-          console.log('Erfolgreich gespeichert.', res);
+          formDirective.resetForm();
+          console.log('Technologie erfolgreich gespeichert.', res);
         },
         error: err => {
-          this.submitError.set('Speichern fehlgeschlagen. Bitte erneut versuchen.');
+          let errorMessage: string;
+          if (err.status === 500) {
+            errorMessage = 'Serverfehler';
+          } else if (err.error?.message === null) {
+            errorMessage = 'Unbekannter Fehler'
+          } else {
+            errorMessage = err.error?.message
+          }
+          this.submitError.set('Speichern fehlgeschlagen: ' + errorMessage);
           console.error('Technologie konnte nicht übermittelt werden!', err);
         },
       });

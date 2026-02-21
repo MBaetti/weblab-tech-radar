@@ -14,17 +14,21 @@ import {MatIconModule} from '@angular/material/icon';
     RouterLinkActive
   ],
   template: `
-    <mat-toolbar color="primary" class="navbar">
+    <mat-toolbar class="navbar" color="primary">
       <mat-icon>radar</mat-icon>
       <span>Tech Radar</span>
 
       <span class="spacer"></span>
 
-      <a mat-button routerLink="/viewer" routerLinkActive="active-link">Viewer</a>
-      <a mat-button routerLink="/manager" routerLinkActive="active-link">Administration</a>
+      <a matButton routerLink="/viewer" routerLinkActive="active-link">Viewer</a>
+      <a matButton routerLink="/manager" routerLinkActive="active-link">Administration</a>
     </mat-toolbar>
   `,
-  styles: ``,
+  styles: `
+    .navbar {
+      background-color: var(--mat-sys-surface-container);
+    }
+  `,
 })
 export class NavbarComponent {
 

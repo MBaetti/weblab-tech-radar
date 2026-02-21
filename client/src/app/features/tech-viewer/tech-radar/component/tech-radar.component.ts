@@ -22,7 +22,7 @@ export class TechRadarComponent implements OnInit {
 
   ngOnInit() :void {
     this.techApiService.getTechnologies().subscribe(technologies => {
-      this.drawRadar(technologies);
+      this.drawRadar(technologies.filter(tech => tech.published));
     });
   }
 
@@ -30,9 +30,9 @@ export class TechRadarComponent implements OnInit {
     const quadrantLabels :TechCategory[] = Object.values(TechCategory);
     const ringLabels :TechRing[] = Object.values(TechRing);
     const nrOfRings :number = ringLabels.length;
-    const width :number = 800;
+    const width :number = this.container.nativeElement.offsetWidth;
     const center :number = width / 2;
-    const radiusMax :number = 300;
+    const radiusMax :number = (width / 2) * 0.85;
     const ringWidth :number = radiusMax / nrOfRings;
 
     // SVG-Container
@@ -54,8 +54,9 @@ export class TechRadarComponent implements OnInit {
         .attr('opacity', 0.5);
 
       // Ring-Labels
+      let rightLabel: boolean = i % 2 === 0;
       svg.append('text')
-        .attr('x', center + i * ringWidth + 10)
+        .attr('x', center + (rightLabel ? 1 : -1) * (i * ringWidth + (rightLabel ? 2 : ringWidth - 2)))
         .attr('y', center - 5)
         .style('font-size', '12px')
         .style('fill', '#666')
@@ -78,16 +79,18 @@ export class TechRadarComponent implements OnInit {
         .attr('stroke-width', 1);
 
       // Quadranten-Labels
-      const labelDistance :number = radiusMax + 70;
-      const labelAngle :number = angle + (Math.PI / ringLabels.length);
-      const labelX :number = center + labelDistance * Math.cos(labelAngle);
-      const labelY :number = center - labelDistance * Math.sin(labelAngle);
+      const labelDistance: number = radiusMax * 1.1;
+      const labelAngle: number = angle + (Math.PI / ringLabels.length);
+      const labelX: number = center + labelDistance * Math.cos(labelAngle);
+      const labelY: number = center - labelDistance * Math.sin(labelAngle);
+      const rotateDeg: number = -(labelAngle * 180 / Math.PI - 90);
 
       svg.append('text')
         .attr('x', labelX)
         .attr('y', labelY)
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
+        .attr('transform', `rotate(${rotateDeg}, ${labelX}, ${labelY})`)
         .style('font-size', '14px')
         .style('font-weight', 'bold')
         .style('fill', '#333')

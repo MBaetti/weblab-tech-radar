@@ -43,7 +43,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 |===
 |Tätigkeit |Befehl
 |PostgreSQL-Image herunterladen |`docker pull postgres`
-|PostgreSQL-Docker-Container starten |`docker run --name techradar -d -p 5432:5432 -e POSTGRES_PASSWORD=8CiENLxvAVHqQGQnbFBu postgres`
+|PostgreSQL-Docker-Container starten |`docker run --name techradar -d -p 5432:5432 -e POSTGRES_PASSWORD={passwort} postgres`
 |===
 
 ==== Prisma

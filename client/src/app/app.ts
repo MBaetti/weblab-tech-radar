@@ -7,9 +7,15 @@ import {NavbarComponent} from './pages/navbar/navbar.component';
   imports: [RouterOutlet, NavbarComponent],
   template: `
     <app-navbar></app-navbar>
-    <router-outlet></router-outlet>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
   `,
-  styles: ``,
+  styles: `
+    .content {
+      padding: 1rem;
+    }
+  `,
 })
 export class App {
   protected readonly title = signal('weblab-tech-radar');
