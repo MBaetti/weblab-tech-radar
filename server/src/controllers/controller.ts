@@ -8,19 +8,6 @@ const isTechCategory = (value: unknown): value is TechCategory =>
 const isTechRing = (value: unknown): value is TechRing =>
     typeof value === 'string' && Object.values(TechRing).includes(value as TechRing);
 
-const parseDate = (value: unknown): Date | null => {
-    if (value instanceof Date && !Number.isNaN(value.getTime())) {
-        return value;
-    }
-    if (typeof value === 'string' || typeof value === 'number') {
-        const parsed = new Date(value);
-        if (!Number.isNaN(parsed.getTime())) {
-            return parsed;
-        }
-    }
-    return null;
-};
-
 export const createTechnology = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { name, category, ring, description, classification } = req.body;

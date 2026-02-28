@@ -1,4 +1,33 @@
-### GET request to example server
+### Alle Technologien abrufen
 GET http://localhost:3000/api/technologies/
+###
 
->{$"message": "Hello, World!"}
+### Technologie nach ID abrufen
+GET http://localhost:3000/api/technologies/1
+###
+
+### Neue Technologie erfassen
+POST http://localhost:3000/api/technologies/
+Content-Type: application/json
+
+{
+  "name": "ArgoCD",
+  "category": "tool",
+  "description": "GitOps-Tool zur deklarativen Verwaltung von Kubernetes-Deployments.",
+  "ring": "adopt",
+  "classification": "Empfohlen für alle neuen Projekte"
+}
+###
+
+### Technologie aktualisieren
+PUT http://localhost:3000/api/technologies/1
+Content-Type: application/json
+
+{
+  "ring": "trial",
+  "published": true
+}
+###
+
+### Technologie löschen
+DELETE http://localhost:3000/api/technologies/1
