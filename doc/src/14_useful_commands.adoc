@@ -10,10 +10,19 @@ ifndef::imagesdir[:imagesdir: ../images]
 [cols="1,1" options="header"]
 |===
 |Tätigkeit |Befehl
-|Docker-Compose-Container starten |`docker-compose up`
+|Docker-Compose starten |`docker-compose up`
+|Docker-Compose mit force Build starten |`docker-compose up --build`
 |===
 
 === Client
+
+==== Docker
+
+|===
+|Tätigkeit |Befehl
+|Docker-Image für Client erstellen |`docker build -t techradar-client .`
+|Docker-Container für Client starten |`docker run -d -p 4200:80 --name techradar-client techradar-client`
+|===
 
 ==== Angular
 
@@ -29,11 +38,20 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 === Server
 
+==== Docker
+
+|===
+|Tätigkeit |Befehl
+|Docker-Image für Server erstellen |`docker build -t techradar-server .`
+|Docker-Container für Server starten |`docker run -d -p 4200:80 --name techradar-server techradar-server`
+|===
+
 ==== Node.js
 
 [cols="1,1" options="header"]
 |===
 |Tätigkeit |Befehl
+|Dependencies installieren |`npm install`
 |Node.js-Server starten |`npm start`
 |===
 

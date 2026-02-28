@@ -1,0 +1,8 @@
+.angular/
+cypress/
+node_modules/
+.dockerignore
+.editorconfig
+.gitignore
+cypress.config.ts
+Dockerfile

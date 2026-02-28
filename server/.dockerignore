@@ -1,0 +1,8 @@
+generated/
+node_modules/
+.dockerignore
+.env
+.gitignore
+Dockerfile
+playground.ts
+tech-radar.http

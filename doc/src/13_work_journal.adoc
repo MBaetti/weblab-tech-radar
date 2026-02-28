@@ -14,5 +14,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 |13.02.2026 |8 |Prisma mit PostgreSQL verbunden und erste Datenbankabfragen(get) für Viewer(Radar) und Manager(List) implementiert.
 |14.02.2026 |4 |Felder Erfassungsdatum, Änderungsdatum und Publikationsdatum in Technologieeintrag für traceability auf Client und Server ergänzt
 |20 & 21.02.2026 |10 |Verbesserungen in der Responsibility, Datenbankabfragen, Error-Handling und des Stylings. Technologiekarten (erfasste Technologien) mit Dialog (zum Publizieren) und der Möglichkeit, Technologien zu löschen, erstellt.
-|*Total* |*39* |*Von geforderten 60 Stunden*
+|25.02.2026 |8 | Stack mit globalen Env-Variablen dockerisiert. Dazu Reverse Proxy mit Nginx integriert.
+|*Total* |*47* |*Von geforderten 60 Stunden*
 |===

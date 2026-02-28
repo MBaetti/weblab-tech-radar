@@ -63,7 +63,7 @@ import {CdkTextareaAutosize} from '@angular/cdk/text-field';
       </form>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button matButton [mat-dialog-close]="false" cdkFocusInitial>Abbrechen</button>
+      <button matButton [mat-dialog-close]="false" cdkFocusInitial>Schliessen</button>
       <button mat-button type="submit" form="techDialog" [disabled]="!technologyDialogFormGroup.valid">Technologie publizieren</button>
       @if (submitError() !== '') {
         <div class="submit-error">{{ submitError() }}</div>

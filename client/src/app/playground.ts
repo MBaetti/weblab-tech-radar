@@ -1,4 +1,4 @@
-import {from, interval, map, scan, Subject, take} from 'rxjs';
+import {from, interval, map, scan, take} from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 // Students
@@ -23,7 +23,7 @@ let source = interval(400).pipe(
   take(9),
   map(i => ['1', '1', 'foo', '2', '3', '5', 'bar', '8', '13'][i]));
 
-// TODO: Create an Observable `result` that emits the
+// Create an Observable `result` that emits the
 // sum of all numbers in source. Use pure functions
 // such as map, filter, reduce, scan, merge, delay,
 // concat, take, etc.

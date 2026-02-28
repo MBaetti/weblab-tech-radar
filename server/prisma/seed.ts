@@ -1,11 +1,5 @@
-import {PrismaClient, TechCategory, TechRing} from '../generated/prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg';
-
-const adapter = new PrismaPg({
-    connectionString: `${process.env["DATABASE_URL"]}`
-});
-
-const prisma = new PrismaClient({ adapter })
+import { TechCategory, TechRing } from '../generated/prisma/client';
+import { prisma } from './prisma';
 
 async function main() {
     console.log('Seeding database with initial technologies...');

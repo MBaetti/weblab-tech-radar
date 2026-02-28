@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
+import { resolve } from 'node:path';
 
-dotenv.config();
+dotenv.config({ path: resolve(process.cwd(), '../.env') });
 
 interface Config {
     port: number;
@@ -8,8 +9,8 @@ interface Config {
 }
 
 const config: Config = {
-    port: Number(process.env['PORT']) || 3000,
-    nodeEnv: process.env['NODE_ENV'] || 'development',
+    port: Number(process.env['SERVER_PORT']) || 3000,
+    nodeEnv: process.env['SERVER_NODE_ENV'] || 'development',
 };
 
 export default config;
