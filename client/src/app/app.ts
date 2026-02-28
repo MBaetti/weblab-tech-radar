@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {NavbarComponent} from './pages/navbar/navbar.component';
 
@@ -18,5 +18,4 @@ import {NavbarComponent} from './pages/navbar/navbar.component';
   `,
 })
 export class App {
-  protected readonly title = signal('weblab-tech-radar');
 }
