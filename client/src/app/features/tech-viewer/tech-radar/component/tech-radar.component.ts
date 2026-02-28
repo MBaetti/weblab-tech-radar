@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as d3 from 'd3';
-import {getPointInSegment} from '../service/tech-radar-position.service';
+import {TechRadarPositionService} from '../service/tech-radar-position.service';
 import {TechRing, TechCategory, TechnologyEntry, TechCategoryLabels, TechRingLabels} from '../../../../types/technology-entry';
 import {TechApiService} from '../../../../global-services/tech-api/tech-api.service';
 
@@ -15,9 +15,11 @@ import {TechApiService} from '../../../../global-services/tech-api/tech-api.serv
 export class TechRadarComponent implements OnInit {
   @ViewChild('radarContainer', { static: true }) container!: ElementRef;
   private readonly techApiService;
+  private readonly positionService;
 
-  public constructor(techApiService: TechApiService) {
+  public constructor(techApiService: TechApiService, positionService: TechRadarPositionService) {
     this.techApiService = techApiService;
+    this.positionService = positionService;
   }
 
   ngOnInit() :void {
@@ -104,7 +106,7 @@ export class TechRadarComponent implements OnInit {
       .append('g')
       .attr('class', 'technologies')
       .attr('transform', (d: TechnologyEntry) => {
-        const pos = getPointInSegment(d.category, d.ring, radiusMax);
+        const pos = this.positionService.getPointInSegment(d.category, d.ring, radiusMax);
         return `translate(${center + pos.x}, ${center - pos.y})`;
       });
 

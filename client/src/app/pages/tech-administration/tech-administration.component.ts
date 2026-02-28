@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {email} from 'zod';
-import {TechFromComponent} from '../../features/tech-manager/tech-form/tech-form.component';
-import {TechCardsComponent} from '../../features/tech-manager/tech-cards/tech-cards.component';
+import {TechFromComponent} from '../../features/tech-administration/tech-form/tech-form.component';
+import {TechCardsComponent} from '../../features/tech-administration/tech-cards/tech-cards.component';
 
 @Component({
   selector: 'app-radar-manager',
@@ -31,5 +30,5 @@ import {TechCardsComponent} from '../../features/tech-manager/tech-cards/tech-ca
   styles: ``,
 })
 export class TechAdministrationComponent {
-  protected readonly email = email;
+
 }
