@@ -2,20 +2,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
-import { RadarViewerComponent } from './radar-viewer.component';
+import { TechViewerComponent } from './tech-viewer.component';
 
 describe('RadarViewerComponent', () => {
-  let component: RadarViewerComponent;
-  let fixture: ComponentFixture<RadarViewerComponent>;
+  let component: TechViewerComponent;
+  let fixture: ComponentFixture<TechViewerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RadarViewerComponent],
+      imports: [TechViewerComponent],
       providers: [provideHttpClient(), provideHttpClientTesting()]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RadarViewerComponent);
+    fixture = TestBed.createComponent(TechViewerComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

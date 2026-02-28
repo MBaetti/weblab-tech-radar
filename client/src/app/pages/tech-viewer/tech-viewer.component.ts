@@ -15,6 +15,6 @@ import {TechRadarComponent} from '../../features/tech-viewer/tech-radar/componen
   `,
   styles: ``,
 })
-export class RadarViewerComponent {
+export class TechViewerComponent {
 
 }

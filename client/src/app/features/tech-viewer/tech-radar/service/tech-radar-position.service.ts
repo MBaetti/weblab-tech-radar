@@ -11,20 +11,20 @@ export class TechRadarPositionService {
     const quadrant = Object.values(TechCategory).indexOf(category);
     const ringIndex = Object.values(TechRing).indexOf(ring);
 
-    // 1. Definiere die Grenzen des Rings (z.B. Ring 0 ist von 0 bis 100px)
+    // 1. Grenzen des Rings definieren
     const ringWidth = radiusMax / 4;
     const minRadius = ringIndex * ringWidth + 10;
     const maxRadius = (ringIndex + 1) * ringWidth - 10;
 
-    // 2. Wähle einen zufälligen Radius innerhalb des Rings
+    // 2. Zufälligen Radius innerhalb des Rings wählen
     const r = Math.sqrt(Math.random() * (maxRadius ** 2 - minRadius ** 2) + minRadius ** 2);
 
-    // 3. Wähle einen zufälligen Winkel innerhalb des Quadranten (90 Grad Segmente)
+    // 3. Zufälligen Winkel innerhalb des Quadranten wählen
     const angleMin = quadrant * (Math.PI / 2);
     const angleMax = (quadrant + 1) * (Math.PI / 2);
     const alpha = Math.random() * (angleMax - angleMin) + angleMin;
 
-    // 4. Konvertiere Polarkoordinaten in Kartesische Koordinaten (x, y)
+    // 4. Polarkoordinaten zu Kartesischen Koordinaten
     return {
       x: r * Math.cos(alpha),
       y: r * Math.sin(alpha)
