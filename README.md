@@ -178,7 +178,7 @@ docker run --name techradar -d -p 5432:5432 -e POSTGRES_PASSWORD={passwort} post
 
 # Testing
 
-## Unit-Tests
+## Unit-Tests mit Vitest
 
 ```bash
 cd client
