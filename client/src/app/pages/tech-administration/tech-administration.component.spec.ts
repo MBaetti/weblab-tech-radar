@@ -4,7 +4,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { TechAdministrationComponent } from './tech-administration.component';
 
-describe('RadarManagerComponent', () => {
+describe('TechAdministrationComponent', () => {
   let component: TechAdministrationComponent;
   let fixture: ComponentFixture<TechAdministrationComponent>;
 
@@ -22,5 +22,23 @@ describe('RadarManagerComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display the heading "Technologie-Administration"', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent?.trim()).toBe('Technologie-Administration');
+  });
+
+  it('should render the tech-form child component', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('tech-form-component')).not.toBeNull();
+  });
+
+  it('should render the tech-cards child component', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('tech-cards-component')).not.toBeNull();
   });
 });
