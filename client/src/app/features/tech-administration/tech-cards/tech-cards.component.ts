@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {MatTableModule} from '@angular/material/table';
 import {TechnologyEntry, TechCategoryLabels, TechRingLabels} from '../../../types/technology-entry';
 import {TechApiService} from '../../../global-services/tech-api/tech-api.service';
@@ -14,15 +14,14 @@ import {
 import {MatButton} from '@angular/material/button';
 import {TechCardDialogComponent} from './tech-card-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {Observable} from 'rxjs';
 
 @Component({
   selector: 'tech-cards-component',
   standalone: true,
-  imports: [CommonModule, MatTableModule, DatePipe, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatButton, MatCardFooter],
+  imports: [MatTableModule, DatePipe, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, MatButton, MatCardFooter],
   template: `
     <div class="tech-cards-container">
-      @for (tech of (dataSource$ | async); track tech.id) {
+      @for (tech of techApiService.technologies(); track tech.id) {
         <mat-card class="tech-card" appearance="raised">
           <mat-card-header>
             <mat-card-title>{{ tech.name }}</mat-card-title>
@@ -97,12 +96,10 @@ import {Observable} from 'rxjs';
 })
 export class TechCardsComponent {
   readonly techApiService: TechApiService;
-  readonly dataSource$: Observable<TechnologyEntry[]>;
   private readonly dialog = inject(MatDialog);
 
   public constructor(techApiService: TechApiService) {
     this.techApiService = techApiService;
-    this.dataSource$ = techApiService.technologies$
   }
 
   getCategoryLabel(category: string): string {

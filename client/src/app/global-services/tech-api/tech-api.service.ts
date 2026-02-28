@@ -1,22 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { TechnologyEntry } from '../../types/technology-entry';
 
 @Injectable({ providedIn: 'root' })
 export class TechApiService {
   private readonly baseUrl = '/api/technologies';
-  // Aktuelle Liste der Technologien, welche vom Service verwaltet werden
-  private readonly techSubject = new BehaviorSubject<TechnologyEntry[]>([]);
-  // Liste der Technologien als Observable, damit Komponenten (tech-cards-component) sich darauf abonnieren können und automatisch Updates erhalten
-  technologies$ = this.techSubject.asObservable();
+  // Aktuelle Liste der Technologien als Signal, welche vom Service verwaltet werden
+  private readonly techSignal = signal<TechnologyEntry[]>([]);
+  // Readonly Signal für Komponenten/Subscriber => tech-cards.component.ts
+  readonly technologies = this.techSignal.asReadonly();
 
   constructor(private readonly httpClient: HttpClient) {
     this.loadInitial();
   }
 
   private loadInitial() {
-    this.getTechnologies().subscribe(techs => this.techSubject.next(techs));
+    this.getTechnologies().subscribe(techs => this.techSignal.set(techs));
   }
 
   createTechnology(payload: Partial<TechnologyEntry>) {
@@ -24,9 +24,9 @@ export class TechApiService {
     if (payload.ring?.trim().length === 0) payload.ring = undefined;
     if (payload.classification?.trim().length === 0) payload.classification = undefined;
 
-    // Tap, um die Liste der Technologien zu aktualisieren und Subscriber indirekt zu informieren
+    // Tap, um die Liste der Technologien zu aktualisieren und Subscriber indirekt zu informieren, wenn http-Request erfolgreich war
     return this.httpClient.post<TechnologyEntry>(this.baseUrl, payload).pipe(
-      tap(newTech => this.techSubject.next([...this.techSubject.value, newTech]))
+      tap(newTech => this.techSignal.update(techs => [...techs, newTech]))
     );
   }
 
@@ -36,25 +36,19 @@ export class TechApiService {
   }
 
   getTechnologyById(id: number) {
-    console.log('TechApiService: getTechnologyById() called, URL:', this.baseUrl, ', ID:', id);
     return this.httpClient.get<TechnologyEntry>(`${this.baseUrl}/${id}`);
-    // Benötigt kein Tap, da keine Daten verändert werden
   }
 
   updateTechnology(id: number, payload: Partial<TechnologyEntry>) {
-    console.log('TechApiService: updateTechnology() called, URL:', this.baseUrl, ', ID:', id, ', Payload:', payload);
     return this.httpClient.put<TechnologyEntry>(`${this.baseUrl}/${id}`, payload).pipe(
       tap(updatedTech =>
-        this.techSubject.next(this.techSubject.value.map(t => t.id === updatedTech.id ? updatedTech : t)))
+        this.techSignal.update(techs => techs.map(t => t.id === updatedTech.id ? updatedTech : t)))
     );
   }
 
   deleteTechnology(id: number) {
     return this.httpClient.delete<void>(`${this.baseUrl}/${id}`).pipe(
-      tap(() => {
-        const updated = this.techSubject.value.filter(t => t.id !== id);
-        this.techSubject.next(updated);
-      })
+      tap(() => this.techSignal.update(techs => techs.filter(t => t.id !== id)))
     );
   }
 }
