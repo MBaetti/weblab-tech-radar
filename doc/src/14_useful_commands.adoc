@@ -83,5 +83,5 @@ ifndef::imagesdir[:imagesdir: ../images]
 [cols="1,1" options="header"]
 |===
 |Tätigkeit |Befehl
-|Cypress-Umgebung öffnen ausführen |`npx cypress open`
+|Cypress-Umgebung öffnen ausführen |`cypress open`
 |===
