@@ -46,6 +46,9 @@ Danach läuft der Client unter `http://localhost:4200/`. Mittels Reverse-Proxi (
 
 Die API ist dadurch unter `http://localhost:4200/api/` verfügbar.
 
+**Wichtig**
+- Es muss ein Docker-Environment vorhanden sein.
+
 # Client
 
 **Angular**
@@ -180,14 +183,23 @@ docker run --name techradar -d -p 5432:5432 -e POSTGRES_PASSWORD={passwort} post
 
 ## Unit-Tests mit Vitest
 
+**Client**
+
 ```bash
-cd client
-ng test
+cd client; ng test; cd ..
+```
+
+**Server**
+
+```bash
+cd server; npm test; cd ..
 ```
 
 ## End-to-End-Tests mit Cypress
 
 ```bash
-cd client
-npx cypress open
+cd client; npx cypress run; cd ..
 ```
+
+**Wichtig**
+- Dazu muss der ganze Stack hochgefahren sein. Entweder einzeln (Client, Server, DB) oder mittels Docker-Compose.

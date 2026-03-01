@@ -78,10 +78,20 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 === Testing
 
+==== Unit-Tests mit Vitest
+
+[cols="1,1" options="header"]
+|===
+|Tätigkeit |Befehl
+|Unit-Tests auf dem Client ausführen |`ng test` (führt intern `vitest run` aus)
+|Unit-Tests auf dem Server ausführen |`npm test` (führt intern `vitest run` aus)
+|===
+
 ==== e2e mit Cypress
 
 [cols="1,1" options="header"]
 |===
 |Tätigkeit |Befehl
-|Cypress-Umgebung öffnen ausführen |`cypress open`
+|Cypress-UI öffnen |`cypress open`
+|Cypress-Tests ausführen |`cypress run`
 |===

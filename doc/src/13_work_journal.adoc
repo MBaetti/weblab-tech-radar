@@ -15,5 +15,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 |14.02.2026 |4 |Felder Erfassungsdatum, Änderungsdatum und Publikationsdatum in Technologieeintrag für traceability auf Client und Server ergänzt
 |20 & 21.02.2026 |10 |Verbesserungen in der Responsibility, Datenbankabfragen, Error-Handling und des Stylings. Technologiekarten (erfasste Technologien) mit Dialog (zum Publizieren) und der Möglichkeit, Technologien zu löschen, erstellt.
 |25.02.2026 |8 | Stack mit globalen Env-Variablen dockerisiert. Dazu Reverse Proxy mit Nginx integriert.
-|*Total* |*47* |*Von geforderten 60 Stunden*
+|28.02.2026 |6 | Versuch, Auth0 zu integrieren. Ich habe mich aufgrund der fortgeschrittenen Zeit ab hier auf das Testing und die Dokumentation konzentriert.
+|01.03.2026 |8 | Unit-Tests für Server und Client mittels Vitest implementiert, sowie e2e-Tests mittels Cypress erweitert.
+|*Total* |*61* |*Von geforderten 60 Stunden*
 |===
