@@ -12,6 +12,8 @@ Die Dokumentation zu diesem Projekt befindet sich unter /doc.
 
 ## Environment
 
+Die Konfiguration der Umgebung wird über .env-Dateien gesteuert. Es gibt zwei .env-Dateien, eine für den Client und eine für den Server. Beide müssen vorhanden sein, damit Docker-Compose funktioniert.
+
 **Client**
 
 Unter `./client/.env`
@@ -20,7 +22,6 @@ Unter `./client/.env`
 # Client
 CLIENT_PORT=4200
 ```
-
 
 **Server**
 
@@ -56,11 +57,76 @@ Die API ist dadurch unter `http://localhost:4200/api/` verfügbar.
 **Wichtig**
 - Es muss ein Docker-Environment vorhanden sein.
 
+# DB
+
+**PostgreSQL**
+
+## DB separat als Docker-Container hochfahren
+
+Dies generiert zusätzlich den Prisma-Client neu und lädt/seedet die Datenbank mit den Daten aus prisma\seed.ts.
+
+```bash
+cd server
+docker pull postgres
+docker run --name techradar -d -p 5432:5432 -e POSTGRES_PASSWORD={passwort} postgres
+cd ..
+```
+
+Prisma-Client generieren, Validierung durchführen, Schema auf die DB pushen und Daten seeden.
+
+```bash
+cd server
+npx prisma generate
+npx prisma validate
+npx prisma db push
+npx prisma db seed
+cd ..
+```
+
+**Wichtig** 
+- {passwort} durch das Passwort ersetzen, welches in der .env-Datei definiert ist.
+- Es muss ein Docker-Environment vorhanden sein.
+
+# Server
+
+**Node.js**
+
+*Version:* v24.13.0
+
+**Express**
+
+API-Routing und Middleware.
+
+## Server separat hochfahren
+
+```bash
+cd server
+npm install
+npm start
+```
+
+Danach läuft der Server unter `http://localhost:3000/`.
+
+# Client
+
+**Angular**
+
+*Version:* 21.1.2
+
+## Client separat hochfahren
+
+```bash
+cd client
+ng serve
+```
+
+Danach läuft der Client unter `http://localhost:4200/`.
+
 # API
 
-*Lokal:* `http://localhost:3000/api`
+*Lokal:* `http://localhost:3000/api/technologies`
 
-*Docker-Compose:* `http://localhost:4200/api/`
+*Docker-Compose:* `http://localhost:4200/api/technologies`
 
 | Methode  | Pfad   | Beschreibung                        |
 |----------|--------|-------------------------------------|
@@ -133,73 +199,6 @@ Die API ist dadurch unter `http://localhost:4200/api/` verfügbar.
 </details>
 
 Ein interaktives File befindet sich unter `./server/tech-radar.http`
-
-# DB
-
-**PostgreSQL**
-
-## DB separat als Docker-Container hochfahren
-
-Dies generiert zusätzlich den Prisma-Client neu und lädt/seedet die Datenbank mit den Daten aus prisma\seed.ts.
-
-```bash
-cd server
-docker pull postgres
-docker run --name techradar -d -p 5432:5432 -e POSTGRES_PASSWORD={passwort} postgres
-cd ..
-```
-
-Prisma-Client generieren, Validierung durchführen, Schema auf die DB pushen und Daten seeden.
-
-```bash
-cd server
-npx prisma generate
-npx prisma validate
-npx prisma db push
-npx prisma db seed
-cd ..
-```
-
-**Wichtig** 
-- {passwort} durch das Passwort ersetzen, welches in der .env-Datei definiert ist.
-- Es muss ein Docker-Environment vorhanden sein.
-
-# Server
-
-**Node.js**
-
-*Version:* v24.13.0
-
-**Express**
-
-API-Routing und Middleware.
-
-## Server separat hochfahren
-
-```bash
-cd server
-npm install
-npm start
-```
-
-Danach läuft der Server unter `http://localhost:3000/`.
-
-Die API ist unter `http://localhost:3000/api` verfügbar.
-
-# Client
-
-**Angular**
-
-*Version:* 21.1.2
-
-## Client separat hochfahren
-
-```bash
-cd client
-ng serve
-```
-
-Danach läuft der Client unter `http://localhost:4200/`.
 
 # Testing
 
