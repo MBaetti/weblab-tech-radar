@@ -1,0 +1,12 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+[[section-work-journal]]
+== Haftungsausschluss
+
+=== Nutzung von generativer künstlicher Intelligenz
+
+Die vorliegende Arbeit wurde vom Autor eigenständig erstellt und bildet die erbrachte Projektleistung ab.
+
+Für die Erstellung des Codes kam teilweise generative künstliche Intelligenz unterstützend zum Einsatz. Der Autor hat die generierten Inhalte sorgfältig geprüft und angepasst, um deren korrekte Funktion und die Erfüllung der Projektanforderungen zu gewährleisten.
+
+Ebenso wurden bei der Erstellung der Dokumentation generative KI-Tools genutzt, um Struktur und Formulierung zu optimieren. Auch diese generierten Inhalte wurden vom Autor vollständig geprüft und bei Bedarf angepasst, um die Qualität und Genauigkeit der Dokumentation sicherzustellen.

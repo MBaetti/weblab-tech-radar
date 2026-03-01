@@ -67,3 +67,7 @@ include::src/13_work_journal.adoc[]
 <<<
 // 14. Nützliche Befehle
 include::src/14_useful_commands.adoc[]
+
+<<<
+// 16. Haftungsausschluss
+include::src/15_disclaimer.adoc[]

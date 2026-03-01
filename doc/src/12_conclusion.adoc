@@ -3,11 +3,60 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-conclusion]]
 == Fazit
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-- Was ist gut gelaufen?
-- Wo lagen die Herausforderungen?
-- Was würden Sie das nächste Mal anders resp. besser machen?
-****
-endif::arc42help[]
+=== Was ist gut gelaufen?
+
+*Aufsetzen des Projekts*
+
+Da ich die Übungen im Unterricht an meinem eigenen Projekt durchgeführt habe, hatte ich ziemlich schnell ein lauffähiges Projekt, welches ich dann weiterentwickeln konnte.
+
+*Implementierung des Forms im Tech-Administrator*
+
+Die Implementierung des Forms zum Erfassen von Technologien im Technologie-Radar-Administrator konnte ich in kurzer Zeit umsetzen. Ich habe Angular Material verwendet, um die Formularelemente zu erstellen, was mir viel Zeit gespart hat. Zudem war die Validierung des Formulars dadurch einfacher umzusetzen.
+
+*Datenbank als Docker-Container*
+
+Ich habe bereits früh eine PostgreSQL-Datenbank als Docker-Container eingesetzt. Dies war extrem hilfreich, da ich die Datenbank schnell und einfach starten und stoppen konnte, ohne mich um die Installation und Konfiguration zu kümmern. Zudem konnte ich die Datenbank leicht zurücksetzen, wenn ich Fehler gemacht habe.
+
+*Readme und Commands von Anfang an gepflegt*
+
+Ich habe von Anfang an eine ausführliche Readme-Datei gepflegt, in der ich die Schritte zum Aufsetzen und Starten des Projekts dokumentiert habe. Zudem habe ich alle wichtigen Commands in der Dokumentation festgehalten, was mir geholfen hat, den Überblick zu behalten.
+
+*Validierung der Applikation*
+
+Ich habe die Applikation vor der Abgabe einem Kollegen zum Testen gegeben, um sicherzustellen, dass alles wie erwartet funktioniert. Das minimiert die Wahrscheinlichkeit von Fehlern, welche bei der Bewertung des Projekts zu Abzügen führen könnten.
+
+=== Wo lagen die Herausforderungen?
+
+*Docker-Compose*
+
+Ich habe mir zum Ziel gesetzt, die Applikation als Docker-Compose bereitzustellen, um die Installation und den Start der Applikation zu vereinfachen. Schlussendlich hat es aber mehr Zeit in Anspruch genommen, als ursprünglich geplant. Da ich noch nie eine Applikation mit Docker-Compose bereitgestellt hatte, konnte ich die Zeit wohl zu wenig gut abschätzen. Dies hilft mir aber, dies in Zukunft besser zu tun.
+
+*Konfiguration*
+
+Meine ursprüngliche Idee war es, ein globales Konfigurationsfile (.env-File) zu verwenden. Dies soll die Konfiguration vereinfachen, indem nur eine Source of Truth existiert. Da das Konfigurationsfile per default jedoch nur auf gleicher Ebene wie die zu startende Applikation verfügbar ist, musste ich die Konfiguration mühsam laden. Nach Rücksprache mit einem Kollegen habe ich mich umentschieden und jeweils eine Konfiguration für den Client und den Server erstellt.
+
+*Authentifizierung*
+
+Ich habe die Authentifizierung mittels Auth0 geplant. Bei der Implementation bin ich aber immer wieder auf Probleme gestossen, da Tutorials und die Dokumentation aufgrund von Versionsunterschieden in einigen Punkten nicht identisch waren. Nach mehr als 8 Stunden habe ich mich dazu entschieden, den Fokus auf die Fertigstellung der bisherigen Funktionalitäten zu legen.
+
+*Grosser Funktionsumfang*
+
+Ziel war es, alle geforderten Funktionalitäten umzusetzen. Den Fokus habe ich dabei zuerst auf die Must-Kriterien gelegt. Da ich die Authentifizierung aber nicht wie geplant umsetzen konnte, fielen User-Story 1 und 7 direkt weg, was sehr frustrierend war.
+
+*Viele Technologien*
+
+Nahezu der ganze verwendete Tech-Stack war neu für mich. Es gab also viele Technologien, mit welchen ich mich erst vertraut machen musste, bevor ich mit der eigentlichen Implementierung beginnen konnte. Das hat die Entwicklung deutlich verlangsamt. Neben den aus meinen Augen notwendigen Technologien wie Angular, Node.js und PostgreSQL, habe ich zusätzlich ein ORM (Prisma), einen Reverse-Proxy (Nginx) und Docker-Compose verwendet. Diese Technologien waren nach der Implementierung sehr hilfreich, jedoch hat die Einarbeitung und die Implementierung sehr viel Zeit in Anspruch genommen.
+
+=== Was würdest du beim nächsten Mal anders resp. besser machen?
+
+*Technologiestack schlanker halten*
+
+Könnte ich die Zeit zurückdrehen, so würde ich einen schlankeren Technologiestack wählen und z.B. eine MongoDB ohne ORM verwenden. Zudem würde ich auf die Verwendung von Docker-Compose verzichten, da dies für die Bereitstellung einer einfachen Applikation nicht unbedingt notwendig ist und auch nicht gefordert war.
+
+*Konfiguration*
+
+Wie bereits erwähnt, würde ich die Konfiguration nicht mehr über ein globales .env-File lösen, sondern jeweils eine Konfiguration für den Client und den Server erstellen. Dies würde die Implementierung deutlich vereinfachen.
+
+*Authentifizierung*
+
+Anstatt eine lange Einarbeitungszeit in ein Framework wie Auth0 zu investieren, würde ich heute eine einfachere Lösung wählen. Zum Beispiel könnte ich die Authentifizierung mittels JWT-Token und einem einfachen Login-Formular implementieren, auch wenn dies so nie in einer professionellen Applikation umgesetzt werden würde. Es würde aber deutlich schneller gehen und die geforderten Funktionalitäten würden trotzdem erfüllt werden.
