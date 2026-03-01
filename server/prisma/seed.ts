@@ -13,7 +13,6 @@ async function main() {
             ring: TechRing.adopt,
             description: 'Die meistgenutzte Library für Web-Frontends.',
             classification: 'Library – Weit verbreitete UI-Bibliothek für Web-Frontends; großes Ökosystem, viele Community-Pakete und breite Adoption.',
-            published: true
         },
         {
             name: 'Kotlin',
@@ -21,7 +20,6 @@ async function main() {
             ring: TechRing.trial,
             description: 'Moderner Standard für Android-Entwicklung und Backend-Services.',
             classification: 'Language/Framework – Moderne, expressive Sprache mit guter Java-Interoperabilität; stark in mobilen und serverseitigen Projekten.',
-            published: true
         },
         {
             name: 'Rust',
@@ -29,7 +27,6 @@ async function main() {
             ring: TechRing.assess,
             description: 'Systemsprache mit Fokus auf Sicherheit und Performance.',
             classification: 'Language/Framework – Systemsprache mit Fokus auf Speichersicherheit und Performance; vielversprechend für System- und Infrastruktursoftware.',
-            published: true
         },
         {
             name: 'Java 8',
@@ -37,7 +34,6 @@ async function main() {
             ring: TechRing.hold,
             description: 'Veraltete Version. Teams sollten auf Java 17+ migrieren.',
             classification: 'Language/Framework – Ältere LTS-Version von Java; weit verbreitet, aber veraltet im Vergleich zu neueren LTS-Versionen.',
-            published: true
         },
         {
             name: 'GitHub Copilot',
@@ -45,7 +41,6 @@ async function main() {
             ring: TechRing.adopt,
             description: 'KI-gestützte Code-Vervollständigung.',
             classification: 'Tool – KI-gestützte Assistenz für Entwickler; steigert Produktivität, erfordert aber Review der generierten Vorschläge.',
-            published: true
         },
         {
             name: 'Postman',
@@ -53,7 +48,6 @@ async function main() {
             ring: TechRing.trial,
             description: 'Tool für API-Tests und Dokumentation.',
             classification: 'Tool – Etabliertes Werkzeug für API-Testing und Dokumentation; benutzerfreundlich und weit verbreitet.',
-            published: true
         },
         {
             name: 'Jenkins',
@@ -61,7 +55,6 @@ async function main() {
             ring: TechRing.assess,
             description: 'Klassisches CI/CD Tool. Oft durch modernere Alternativen ersetzt.',
             classification: 'Tool – Bewährter CI-Server mit großer Verbreitung; wird jedoch in vielen Teams durch modernere, cloud-native Dienste ersetzt.',
-            published: true
         },
         {
             name: 'Terraform',
@@ -69,7 +62,6 @@ async function main() {
             ring: TechRing.hold,
             description: 'Infrastructure as Code Standard.',
             classification: 'Tool – Declarative Infrastructure-as-Code; Standard für Provisionierung und Multi-Cloud-Management.',
-            published: true
         },
         {
             name: 'AWS',
@@ -77,7 +69,6 @@ async function main() {
             ring: TechRing.adopt,
             description: 'Marktführende Cloud-Plattform.',
             classification: 'Plattform – Marktführende Cloud mit umfangreichem Dienstangebot und globaler Infrastruktur.',
-            published: true
         },
         {
             name: 'Vercel',
@@ -85,7 +76,6 @@ async function main() {
             ring: TechRing.trial,
             description: 'Optimale Plattform für Next.js und Frontend-Deployments.',
             classification: 'Plattform – Spezialisiert auf Frontend-Deployments und Serverless-Hosting; besonders geeignet für Next.js-Anwendungen.',
-            published: true
         },
         {
             name: 'Azure',
@@ -93,7 +83,6 @@ async function main() {
             ring: TechRing.assess,
             description: 'Microsofts Cloud-Ökosystem, stark in Enterprise-Umgebungen.',
             classification: 'Plattform – Enterprise-fokussierte Cloud mit starker Integration ins Microsoft-Ökosystem und vielfältigen Diensten.',
-            published: true
         },
         {
             name: 'Microservices',
@@ -101,7 +90,6 @@ async function main() {
             ring: TechRing.hold,
             description: 'Architekturstil zur Zerlegung komplexer Systeme.',
             classification: 'Technique – Architekturansatz zur Aufteilung in unabhängige, deploybare Dienste; fördert Skalierbarkeit, erhöht aber Komplexität.',
-            published: true
         },
         {
             name: 'GraphQL',
@@ -109,7 +97,6 @@ async function main() {
             ring: TechRing.adopt,
             description: 'Abfragesprache für APIs als Alternative zu REST.',
             classification: 'Technique – Flexible API-Abfragesprache, die Over- und Underfetching reduziert; gut für komplexe Clients.',
-            published: true
         },
         {
             name: 'Test Driven Development (TDD)',
@@ -117,7 +104,6 @@ async function main() {
             ring: TechRing.trial,
             description: 'Entwicklungsprozess, bei dem Tests vor dem Code geschrieben werden.',
             classification: 'Technique – Entwicklungsprinzip, das durch Tests qualitativ besseren, getesteten Code und klareres Design fördert.',
-            published: true
         }
     ];
 
@@ -125,6 +111,13 @@ async function main() {
         await prisma.technologyEntry.create({
             data: tech,
         });
+        await prisma.technologyEntry.update({
+            where: { name: tech.name },
+            data: {
+                published: true,
+                publicationDate: new Date(),
+            },
+        })
     }
 
     console.log(`${technologies.length} new technologies have been seeded into the database.`);
