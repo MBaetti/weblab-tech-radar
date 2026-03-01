@@ -12,14 +12,21 @@ Die Dokumentation zu diesem Projekt befindet sich unter /doc.
 
 ## Environment
 
-Als .env-Datei im Root-Verzeichnis hinterlegen.
+**Client**
 
-**Inhalt**
+Unter `./client/.env`
 
 ```env
 # Client
 CLIENT_PORT=4200
+```
 
+
+**Server**
+
+Unter `./server/.env`
+
+```env
 # Server
 SERVER_PORT=3000
 SERVER_NODE_ENV=development
@@ -39,7 +46,7 @@ DB_NAME=techradar
 ## Docker-Compose
 
 ```bash
-docker-compose up -d
+docker compose --env-file .\client\.env --env-file .\server\.env up -d
 ```
 
 Danach läuft der Client unter `http://localhost:4200/`. Mittels Reverse-Proxi (nginx) wird der Server unter `http://localhost:3000/` für den Client erreichbar.
@@ -48,21 +55,6 @@ Die API ist dadurch unter `http://localhost:4200/api/` verfügbar.
 
 **Wichtig**
 - Es muss ein Docker-Environment vorhanden sein.
-
-# Client
-
-**Angular**
-
-*Version:* 21.1.2
-
-## Client separat hochfahren
-
-```bash
-cd client
-ng serve
-```
-
-Danach läuft der Client unter `http://localhost:4200/`.
 
 # API
 
@@ -142,6 +134,36 @@ Danach läuft der Client unter `http://localhost:4200/`.
 
 Ein interaktives File befindet sich unter `./server/tech-radar.http`
 
+# DB
+
+**PostgreSQL**
+
+## DB separat als Docker-Container hochfahren
+
+Dies generiert zusätzlich den Prisma-Client neu und lädt/seedet die Datenbank mit den Daten aus prisma\seed.ts.
+
+```bash
+cd server
+docker pull postgres
+docker run --name techradar -d -p 5432:5432 -e POSTGRES_PASSWORD={passwort} postgres
+cd ..
+```
+
+Prisma-Client generieren, Validierung durchführen, Schema auf die DB pushen und Daten seeden.
+
+```bash
+cd server
+npx prisma generate
+npx prisma validate
+npx prisma db push
+npx prisma db seed
+cd ..
+```
+
+**Wichtig** 
+- {passwort} durch das Passwort ersetzen, welches in der .env-Datei definiert ist.
+- Es muss ein Docker-Environment vorhanden sein.
+
 # Server
 
 **Node.js**
@@ -164,20 +186,20 @@ Danach läuft der Server unter `http://localhost:3000/`.
 
 Die API ist unter `http://localhost:3000/api` verfügbar.
 
-# DB
+# Client
 
-**PostgreSQL**
+**Angular**
 
-## DB separat als Docker-Container hochfahren
+*Version:* 21.1.2
+
+## Client separat hochfahren
 
 ```bash
-docker pull postgres
-docker run --name techradar -d -p 5432:5432 -e POSTGRES_PASSWORD={passwort} postgres
+cd client
+ng serve
 ```
 
-**Wichtig** 
-- {passwort} durch das Passwort ersetzen, welches in der .env-Datei definiert ist.
-- Es muss ein Docker-Environment vorhanden sein.
+Danach läuft der Client unter `http://localhost:4200/`.
 
 # Testing
 

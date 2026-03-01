@@ -19,4 +19,5 @@ npm-debug.log
 yarn-error.log
 
 # Environment Variablen
-.env
+server/.env
+client/.env

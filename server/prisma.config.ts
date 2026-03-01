@@ -1,14 +1,5 @@
-import dotenv from 'dotenv';
-import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'node:path';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-dotenv.config({ path: resolve(__dirname, '../.env') });
-
+import "dotenv/config";
 import { defineConfig } from "prisma/config";
-
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env;
-const url = `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=public`;
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
@@ -16,5 +7,8 @@ export default defineConfig({
     path: "prisma/migrations",
     seed: "tsx prisma/seed.ts"
   },
-  datasource: { url },
+  datasource: {
+    // Connection-String vom Compose oder vom .env-File
+    url: process.env["DATABASE_URL"] ?? `postgresql://${process.env["DB_USER"]}:${process.env["DB_PASSWORD"]}@${process.env["DB_HOST"]}:${process.env["DB_PORT"]}/${process.env["DB_NAME"]}?schema=public`
+  },
 });

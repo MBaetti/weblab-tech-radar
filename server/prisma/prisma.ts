@@ -1,16 +1,8 @@
-import dotenv from 'dotenv';
-import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'node:path';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-dotenv.config({ path: resolve(__dirname, '../../.env') });
-
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../generated/prisma/client';
 
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME, DATABASE_URL } = process.env;
-const connectionString = DATABASE_URL
-  ?? `postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=public`;
+// Connection-String vom Compose oder vom .env-File
+const connectionString = process.env["DATABASE_URL"] ?? `postgresql://${process.env["DB_USER"]}:${process.env["DB_PASSWORD"]}@${process.env["DB_HOST"]}:${process.env["DB_PORT"]}/${process.env["DB_NAME"]}?schema=public`
 
 const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
