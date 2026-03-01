@@ -21,7 +21,7 @@ import {MatIconModule} from '@angular/material/icon';
       <span class="spacer"></span>
 
       <a matButton routerLink="/viewer" routerLinkActive="active-link">Viewer</a>
-      <a matButton routerLink="/manager" routerLinkActive="active-link">Administration</a>
+      <a matButton routerLink="/administration" routerLinkActive="active-link">Administration</a>
     </mat-toolbar>
   `,
   styles: `

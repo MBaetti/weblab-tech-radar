@@ -43,13 +43,13 @@ describe('App', () => {
     expect(router.url).toBe('/viewer');
   });
 
-  it('should navigate to /manager', async () => {
+  it('should navigate to /administration', async () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
     const router = TestBed.inject(Router);
-    await router.navigate(['/manager']);
+    await router.navigate(['/administration']);
     await fixture.whenStable();
-    expect(router.url).toBe('/manager');
+    expect(router.url).toBe('/administration');
   });
 
   it('should navigate to /viewer', async () => {

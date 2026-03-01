@@ -4,6 +4,6 @@ import { TechAdministrationComponent } from '../pages/tech-administration/tech-a
 
 export const routes: Routes = [
   { path: 'viewer', component: TechViewerComponent },
-  { path: 'manager', component: TechAdministrationComponent },
+  { path: 'administration', component: TechAdministrationComponent },
   { path: '**', redirectTo: 'viewer' }
 ];

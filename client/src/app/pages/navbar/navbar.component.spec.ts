@@ -36,11 +36,11 @@ describe('NavbarComponent', () => {
     expect(link).not.toBeUndefined();
   });
 
-  it('should have a navigation link to /manager', () => {
+  it('should have a navigation link to /administration', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const link = Array.from(compiled.querySelectorAll('a'))
-      .find(a => a.getAttribute('routerlink') === '/manager' || a.getAttribute('href') === '/manager');
+      .find(a => a.getAttribute('routerlink') === '/administration' || a.getAttribute('href') === '/administration');
     expect(link).not.toBeUndefined();
   });
 
