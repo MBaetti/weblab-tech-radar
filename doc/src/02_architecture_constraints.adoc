@@ -3,25 +3,15 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-architecture-constraints]]
 == Randbedingungen
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Inhalt
-Randbedingungen und Vorgaben, die ihre Freiheiten bezüglich Entwurf, Implementierung oder Ihres Entwicklungsprozesses einschränken.
-Diese Randbedingungen gelten manchmal organisations- oder firmenweit über die Grenzen einzelner Systeme hinweg.
+Der Weblab Tech-Radar soll:
 
-.Motivation
-Für eine tragfähige Architektur sollten Sie genau wissen, wo Ihre Freiheitsgrade bezüglich der Entwurfsentscheidungen liegen und wo Sie Randbedingungen beachten müssen.
-Sie können Randbedingungen vielleicht noch verhandeln, zunächst sind sie aber da.
-
-.Form
-Einfache Tabellen der Randbedingungen mit Erläuterungen.
-Bei Bedarf unterscheiden Sie technische, organisatorische und politische Randbedingungen oder übergreifende Konventionen (beispielsweise Programmier- oder Versionierungsrichtlinien, Dokumentations- oder Namenskonvention).
-
-
-.Weiterführende Informationen
-
-Siehe https://docs.arc42.org/section-2/[Randbedingungen] in der online-Dokumentation (auf Englisch!).
-
-****
-endif::arc42help[]
+* die im vorherigen Kapitel beschriebenen Must-Anforderungen erfüllen.
+* als Angular SPA mit Angular Material im Frontend realisiert werden.
+* mit Next.js, Express für die API und Prisma als ORM im Backend umgesetzt werden.
+* TypeScript als Programmiersprache verwenden.
+* eine PostgreSQL Datenbank zur Datenhaltung verwenden.
+* vollständig über Docker Compose containerisiert und auslieferbar sein.
+* über .env-Dateien konfigurierbar sein.
+* mit Vitest für Unit-Tests und Cypress für E2E-Tests automatisiert getestet werden.
+* nach arc42 dokumentiert werden.
+* rechtzeitig zum Abgabetermin am 6. März 2026 mit den geforderten Dokumenten abgegeben werden.
