@@ -3,55 +3,117 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-runtime-view]]
 == Laufzeitsicht
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Inhalt
-Diese Sicht erklärt konkrete Abläufe und Beziehungen zwischen Bausteinen in Form von Szenarien aus den folgenden Bereichen:
+=== Technologie erfassen
 
-*  Wichtige Abläufe oder _Features_:
-Wie führen die Bausteine der Architektur die wichtigsten Abläufe durch?
-*  Interaktionen an kritischen externen Schnittstellen:
-Wie arbeiten Bausteine mit Nutzern und Nachbarsystemen zusammen?
-* Betrieb und Administration: Inbetriebnahme, Start, Stop.
-* Fehler- und Ausnahmeszenarien
+[plantuml, target=runtime-create, format=png]
+----
+@startuml
+actor "CTO/Tech Lead" as user
+participant "Client\n(Angular SPA)" as client
+participant "Nginx" as nginx
+participant "Server\n(Express API)" as server
+database "PostgreSQL" as db
 
-Anmerkung:
-Das Kriterium für die Auswahl der möglichen Szenarien (d.h. Abläufe) des Systems ist deren Architekturrelevanz.
-Es geht nicht darum, möglichst viele Abläufe darzustellen, sondern eine angemessene Auswahl zu dokumentieren.
+user -> client : Formular ausfüllen und\n"Technologie erfassen" klicken
+client -> client : Technologiename, Kategorie und\nBeschreibung prüfen (Pflichtfelder)
+client -> nginx : POST /api/technologies
+nginx -> server : Weiterleitung
+server -> server : Eingabevalidierung
+server -> db : INSERT TechnologyEntry
+db --> server : Neuer Eintrag
+server --> nginx : 201 Created
+nginx --> client : JSON Response
+client --> user : Zurückgesetztes Formular\nohne Fehlermeldungen
 
-.Motivation
-Sie sollten verstehen, wie (Instanzen von) Bausteine(n) Ihres Systems ihre jeweiligen Aufgaben erfüllen und zur Laufzeit miteinander kommunizieren.
+@enduml
+----
 
-Nutzen Sie diese Szenarien in der Dokumentation hauptsächlich für eine verständlichere Kommunikation mit denjenigen Stakeholdern, die die statischen Modelle (z.B. Bausteinsicht, Verteilungssicht) weniger verständlich finden.
+Der Client sendet die Formulardaten als JSON an die REST-API.
+Der Controller validiert alle Pflichtfelder und prüft, ob der Technologiename eindeutig ist bzw. ob er bereits existiert.
+Bei ungültigen Daten wird ein `400 Bad Request` zurückgegeben, bei Duplikaten ein `409 Conflict`. Schlägt die Übermittlung oder die Validierung fehl, so zeigt der Client eine entsprechende Fehlermeldung beim Formular an.
 
-.Form
-Für die Beschreibung von Szenarien gibt es zahlreiche Ausdrucksmöglichkeiten.
-Nutzen Sie beispielsweise:
+=== Technologie publizieren
 
-* Nummerierte Schrittfolgen oder Aufzählungen in Umgangssprache
-* Aktivitäts- oder Flussdiagramme
-* Sequenzdiagramme
-* BPMN (Geschäftsprozessmodell und -notation) oder EPKs (Ereignis-Prozessketten)
-* Zustandsautomaten
-* ...
+[plantuml, target=runtime-publish, format=png]
+----
+@startuml
+actor "CTO/Tech Lead" as user
+participant "Client\n(Angular SPA)" as client
+participant "Nginx" as nginx
+participant "Server\n(Express API)" as server
+database "PostgreSQL" as db
 
-.Weiterführende Informationen
+user -> client : Technologie auswählen,\nFormular ausfüllen\nund "Publizieren" klicken
+client -> client : Ring und Einordnung\nprüfen (Pflichtfelder)
+client -> nginx : PUT /api/technologies/{id}
+nginx -> server : Weiterleitung
+server -> server : Eingabevalidierung
+server -> server : publicationDate setzen\n(falls erstmalige Publikation)
+server -> db : UPDATE TechnologyEntry
+db --> server : Aktualisierter Eintrag
+server --> nginx : 200 OK
+nginx --> client : JSON Response
+client --> user : Publikationsdatum anzeigen
 
-Siehe https://docs.arc42.org/section-6/[Laufzeitsicht] in der online-Dokumentation (auf Englisch!).
+@enduml
+----
 
-****
-endif::arc42help[]
+Beim Publizieren sendet der Client einen PUT-Request mit `published: true` sowie den Pflichtfeldern Ring und Einordnung.
+Der Controller prüft die Eingaben und setzt bei erstmaliger Publikation automatisch das `publicationDate`.
 
-=== _<Bezeichnung Laufzeitszenario 1>_
+=== Technologien im Radar anzeigen
 
-*  <hier Laufzeitdiagramm oder Ablaufbeschreibung einfügen>
-*  <hier Besonderheiten bei dem Zusammenspiel der Bausteine in diesem Szenario erläutern>
+[plantuml, target=runtime-view-radar, format=png]
+----
+@startuml
+actor "Mitarbeiter" as user
+participant "Client\n(Angular SPA)" as client
+participant "Nginx" as nginx
+participant "Server\n(Express API)" as server
+database "PostgreSQL" as db
 
-=== _<Bezeichnung Laufzeitszenario 2>_
+user -> client : Radar Viewer öffnen
+client -> nginx : GET /api/technologies
+nginx -> server : Weiterleitung
+server -> db : SELECT * FROM TechnologyEntry
+db --> server : Liste aller Einträge
+server --> nginx : 200 OK
+nginx --> client : JSON Array
+client -> client : Filtern nach\npublizierten Einträgen
+client -> client : Radar mit\nTechnologiedaten rendern
+client --> user : Radar Visualisierung
 
-...
+@enduml
+----
 
-=== _<Bezeichnung Laufzeitszenario n>_
+Beim Öffnen des Viewers lädt der Client alle Technologien über die REST-API.
+Anschliessend werden nur publizierte Einträge gefiltert und als Radar dargestellt.
 
-...
+=== Technologie löschen
+
+[plantuml, target=runtime-delete, format=png]
+----
+@startuml
+actor "CTO/Tech Lead" as user
+participant "Client\n(Angular SPA)" as client
+participant "Nginx" as nginx
+participant "Server\n(Express API)" as server
+database "PostgreSQL" as db
+
+user -> client : Technologie auswählen\nund "Löschen" klicken
+client -> nginx : DELETE /api/technologies/{id}
+nginx -> server : Weiterleitung
+server -> db : SELECT TechnologyEntry
+db --> server : Eintrag gefunden
+server -> db : DELETE TechnologyEntry
+db --> server : Gelöschter Eintrag
+server --> nginx : 200 OK
+nginx --> client : JSON Response
+client --> user : Technologie aus\nListe entfernen
+
+@enduml
+----
+
+Beim Löschen sendet der Client einen DELETE-Request mit der ID der Technologie.
+Nach erfolgreichem Löschen wird die Technologie aus der Liste im Client entfernt.
+

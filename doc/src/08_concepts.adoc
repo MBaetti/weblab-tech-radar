@@ -3,60 +3,39 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-concepts]]
 == Querschnittliche Konzepte
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Inhalt
-Dieser Abschnitt beschreibt übergreifende, prinzipielle Regelungen und Lösungsansätze, die an mehreren Stellen (=_querschnittlich_) relevant sind.
+=== Persistierung
 
-Solche Konzepte betreffen oft mehrere Bausteine.
-Dazu können vielerlei Themen gehören, wie beispielsweise die Themen aus dem nachfolgenden Diagramm:
+Das Datenmodell wird zentral im Prisma Schema definiert.
+Prisma generiert daraus einen typensicheren Client, der im Server für alle Datenbankzugriffe verwendet wird.
+Es können Initialisierungsdaten über ein Seed-File definiert und eingespielt werden.
+Die Daten werden in einem Docker Volume persistiert.
 
-image::08-concepts-DE.drawio.png["Mögliche Themen für querschnittliche Konzepte"]
+=== API Kommunikation
 
-.Motivation
-Konzepte bilden die Grundlage für _konzeptionelle Integrität_ (Konsistenz, Homogenität) der Architektur und damit eine wesentliche Grundlage für die innere Qualität Ihrer Systeme.
+Client und Server kommunizieren ausschliesslich über eine REST-API unter dem Pfad `/api/technologies`.
+Im Produktionsbetrieb/Compose-Stack leitet Nginx alle Anfragen an `/api/` als Reverse Proxy an den Server weiter.
+In der lokalen Entwicklung übernimmt ein Angular Proxy dieselbe Aufgabe.
 
-Dieser Abschnitt im Template ist der richtige Ort für die konsistente Behandlung solcher Themen.
+Der Client kapselt sämtliche HTTP-Aufrufe in einem zentralen TechApiService.
+Dieser verwaltet den Zustand der Technologieliste als Angular Signal und aktualisiert ihn nach jeder erfolgreichen Mutation.
 
-Viele solche Konzepte beeinflussen oder beziehen sich auf mehrerer Ihrer Bausteine.
+=== Validierung
 
-.Form
-Kann vielfältig sein:
+Die Eingabevalidierung erfolgt auf zwei Ebenen:
 
-* Konzeptpapiere mit beliebiger Gliederung,
-* beispielhafte Implementierung speziell für technische Konzepte,
-* übergreifende Modelle/Szenarien mit Notationen, die Sie auch in den Architektursichten nutzen,
+**Client**: Angular Reactive Forms mit Validatoren verhindern das Absenden unvollständiger Formulare.
 
+**Server**: Der Controller auf dem Server prüft jeden Request auf gültige Typen, Pflichtfelder und Duplikate. Bei Fehlern werden entsprechende HTTP-Statuscodes zurückgegeben.
 
-.Struktur
-Wählen Sie **nur** die wichtigsten Themen für Ihr System und erklären das jeweilige Konzept dann unter einer Level-2 Überschrift dieser Sektion (z.B. 8.1, 8.2 etc).
+=== Fehlerbehandlung
 
-Beschränken Sie sich auf die wichtigen, und versuchen **auf keinen Fall** alle oben dargestellten Themen zu bearbeiten.
+Auf dem Server fängt eine zentrale Error-Handler-Middleware alle nicht abgefangenen Fehler ab und liefert eine einheitliche JSON-Antwort mit Statuscode und Fehlermeldung zurück.
 
-.Weiterführende Informationen
+=== Testkonzept
 
-Einige Themen innerhalb von Systemen betreffen oft mehrere Bausteine, Hardwareelemente oder Prozesse.
-Es könnte einfacher sein, solche _Querschnittsthemen_ an einer zentralen Stelle zu kommunizieren oder zu dokumentieren, anstatt sie in der Beschreibung der betreffenden Bausteine, Hardwareelemente oder Entwicklungsprozesse zu wiederholen.
-
-Bestimmte Konzepte können **alle** Elemente eines Systems betreffen, andere sind vielleicht nur für einige wenige relevant.
-
-
-Siehe https://docs.arc42.org/section-8/[Querschnittliche Konzepte] in der online-Dokumentation (auf Englisch).
-
-****
-endif::arc42help[]
-
-=== _<Konzept 1>_
-
-_<Erklärung>_
-
-=== _<Konzept 2>_
-
-_<Erklärung>_
-
-...
-
-=== _<Konzept n>_
-
-_<Erklärung>_
+[cols="1,1,2" options="header"]
+|===
+| Ebene | Framework | Beschreibung
+| Unit | Vitest | Automatisierte Tests auf Client und Server mit Mocks
+| E2E | Cypress | Automatisierte Tests bei laufendem Stack auf dem UI
+|===

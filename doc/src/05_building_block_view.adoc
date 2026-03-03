@@ -9,6 +9,9 @@ ifndef::imagesdir[:imagesdir: ../images]
 ----
 @startuml
 !include <C4/C4_Container>
+<style>
+    element {MinimumWidth 200}
+</style>
 
 Person(user, "User", "CTO/Tech Lead oder Mitarbeiter")
 

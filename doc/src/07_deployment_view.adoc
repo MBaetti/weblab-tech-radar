@@ -3,89 +3,53 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-deployment-view]]
 == Verteilungssicht
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Inhalt
-Die Verteilungssicht beschreibt:
+Alle Komponenten werden via Docker Compose als Container auf einem einzelnen Host bereitgestellt.
 
-1. die technische Infrastruktur, auf der Ihr System ausgeführt wird, mit Infrastrukturelementen wie Standorten, Umgebungen, Rechnern, Prozessoren, Kanälen und Netztopologien sowie sonstigen Bestandteilen, und
+=== Infrastruktur
 
-2. die Abbildung von (Software-)Bausteinen auf diese Infrastruktur.
+[plantuml, target=deployment, format=png]
+----
+@startuml
+!include <C4/C4_Deployment>
+<style>
+    element {MinimumWidth 200}
+</style>
 
+Deployment_Node(host, "Host", "Docker Compose") {
 
-Häufig laufen Systeme in unterschiedlichen Umgebungen, beispielsweise Entwicklung-/Test- oder Produktionsumgebungen.
-In solchen Fällen sollten Sie alle relevanten Umgebungen aufzeigen.
+  Deployment_Node(clientContainer, "techradar_client", "nginx:alpine") {
+    Container(spa, "Angular", "SPA", "Auslieferung über Nginx")
+    Container(proxy, "Reverse Proxy", "Nginx", "Leitet API-Calls an Server weiter")
+  }
 
-Nutzen Sie die Verteilungssicht insbesondere dann, wenn Ihre Software auf mehr als einem Rechner, Prozessor, Server oder Container abläuft oder Sie Ihre Hardware sogar selbst konstruieren.
+  Deployment_Node(serverContainer, "techradar_server", "node:20-alpine") {
+    Container(api, "Express API", "Node.js", "REST Endpunkte, Prisma ORM")
+  }
 
-Aus Softwaresicht genügt es, auf die Aspekte zu achten, die für die Softwareverteilung relevant sind.
-Insbesondere bei der Hardwareentwicklung kann es notwendig sein, die Infrastruktur mit beliebigen Details zu beschreiben.
+  Deployment_Node(dbContainer, "techradar_db", "postgres:alpine") {
+    ContainerDb(db, "PostgreSQL", "", "Persistierung der Technologie Einträge")
+  }
+}
 
-.Motivation
-Software läuft nicht ohne Infrastruktur.
-Diese zugrundeliegende Infrastruktur beeinflusst Ihr System und/oder querschnittliche Lösungskonzepte, daher müssen Sie diese Infrastruktur kennen.
+Rel(spa, proxy, "Anfragen an /api/")
+Rel(proxy, api, "server:3000")
+Rel(api, db, "db:5432")
 
-.Form
-Das oberste Verteilungsdiagramm könnte bereits in Ihrem technischen Kontext enthalten sein, mit Ihrer Infrastruktur als EINE Blackbox.
-Jetzt zoomen Sie in diese Infrastruktur mit weiteren Verteilungsdiagrammen hinein:
+@enduml
+----
 
-* Die UML stellt mit Verteilungsdiagrammen (Deployment diagrams) eine Diagrammart zur Verfügung, um diese Sicht auszudrücken.
-Nutzen Sie diese, evtl. auch geschachtelt, wenn Ihre Verteilungsstruktur es verlangt.
-* Falls Ihre Infrastruktur-Stakeholder andere Diagrammarten bevorzugen, die beispielsweise Prozessoren und Kanäle zeigen, sind diese hier ebenfalls einsetzbar.
+[cols="1,2" options="header"]
+|===
+| Container | Beschreibung
+| techradar_client | Nginx liefert die gebaute Angular SPA aus und leitet API-Anfragen als Reverse Proxy an den Server weiter.
+| techradar_server | Node.js Container mit der Express REST-API. Beim Start wird das vordefinierte Datenbankschema und Seed-Daten über Prisma angewendet.
+| techradar_db | PostgreSQL Datenbank. Die Daten werden über ein Docker Volume persistiert.
+|===
 
-.Weiterführende Informationen
+=== Startvorgang
 
-Siehe https://docs.arc42.org/section-7/[Verteilungssicht] in der online-Dokumentation (auf Englisch!).
+Der Start des Docker-Compose läuft in folgender Reihenfolge ab:
 
-****
-endif::arc42help[]
-
-=== Infrastruktur Ebene 1
-
-ifdef::arc42help[]
-[role="arc42help"]
-****
-An dieser Stelle beschreiben Sie (als Kombination von Diagrammen mit Tabellen oder Texten):
-
-* die Verteilung des Gesamtsystems auf mehrere Standorte, Umgebungen, Rechner, Prozessoren o. Ä., sowie die physischen Verbindungskanäle zwischen diesen,
-* wichtige Begründungen für diese Verteilungsstruktur,
-* Qualitäts- und/oder Leistungsmerkmale dieser Infrastruktur,
-* Zuordnung von Softwareartefakten zu Bestandteilen der Infrastruktur
-
-Für mehrere Umgebungen oder alternative Deployments kopieren Sie diesen Teil von arc42 für alle wichtigen Umgebungen/Varianten.
-****
-endif::arc42help[]
-
-_**<Übersichtsdiagramm>**_
-
-Begründung:: _<Erläuternder Text>_
-
-Qualitäts- und/oder Leistungsmerkmale:: _<Erläuternder Text>_
-
-Zuordnung von Bausteinen zu Infrastruktur:: _<Beschreibung der Zuordnung>_
-
-=== Infrastruktur Ebene 2
-
-ifdef::arc42help[]
-[role="arc42help"]
-****
-An dieser Stelle können Sie den inneren Aufbau (einiger) Infrastrukturelemente aus Ebene 1 beschreiben.
-
-Für jedes Infrastrukturelement kopieren Sie die Struktur aus Ebene 1.
-****
-endif::arc42help[]
-
-==== _<Infrastrukturelement 1>_
-
-_<Diagramm + Erläuterungen>_
-
-==== _<Infrastrukturelement 2>_
-
-_<Diagramm + Erläuterungen>_
-
-...
-
-==== _<Infrastrukturelement n>_
-
-_<Diagramm + Erläuterungen>_
+1. **techradar_db** startet zuerst. Ein Healthcheck stellt sicher, dass die Datenbank bereit ist.
+2. **techradar_server** startet nach erfolgreichem Healthcheck der Datenbank. Beim Start werden Schema und Seed-Daten angewendet. Zudem wird die Express-API gestartet.
+3. **techradar_client** startet zuletzt und ist über den konfigurierten Port von aussen erreichbar.

@@ -18,5 +18,6 @@ ifndef::imagesdir[:imagesdir: ../images]
 |28.02.2026 |6 | Versuch, Auth0 zu integrieren. Ich habe mich aufgrund der fortgeschrittenen Zeit ab hier auf das Testing und die Dokumentation konzentriert.
 |01.03.2026 |10 | Unit-Tests für Server und Client mittels Vitest implementiert sowie e2e-Tests mittels Cypress erweitert, Env-Variablen von Client und Server separiert, README überarbeitet, Fazit geschrieben, Optimierung des Compose-Stack und der Initialisierung der DB mittels Prisma.
 |02.03.2026 |3 |Kapitel 1-5 dokumentiert
-|*Total* |*66* |*Von geforderten 60 Stunden*
+|02.03.2026 |3 |Kapitel 5-9 dokumentiert
+|*Total* |*69* |*Von geforderten 60 Stunden*
 |===
