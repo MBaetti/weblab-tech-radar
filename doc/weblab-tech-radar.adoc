@@ -69,5 +69,5 @@ include::src/13_work_journal.adoc[]
 include::src/14_useful_commands.adoc[]
 
 <<<
-// 16. Haftungsausschluss
+// 15. Haftungsausschluss
 include::src/15_disclaimer.adoc[]

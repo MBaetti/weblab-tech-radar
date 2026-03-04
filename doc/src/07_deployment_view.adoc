@@ -12,7 +12,7 @@ Alle Komponenten werden via Docker Compose als Container auf einem einzelnen Hos
 @startuml
 !include <C4/C4_Deployment>
 <style>
-    element {MinimumWidth 200}
+    element {MinimumWidth 190}
 </style>
 
 Deployment_Node(host, "Host", "Docker Compose") {
@@ -41,9 +41,15 @@ Rel(api, db, "db:5432")
 [cols="1,2" options="header"]
 |===
 | Container | Beschreibung
-| techradar_client | Nginx liefert die gebaute Angular SPA aus und leitet API-Anfragen als Reverse Proxy an den Server weiter.
-| techradar_server | Node.js Container mit der Express REST-API. Beim Start wird das vordefinierte Datenbankschema und Seed-Daten über Prisma angewendet.
-| techradar_db | PostgreSQL Datenbank. Die Daten werden über ein Docker Volume persistiert.
+
+| techradar_client
+| Nginx liefert die gebaute Angular SPA aus und leitet API-Anfragen als Reverse Proxy an den Server weiter.
+
+| techradar_server
+| Node.js Container mit der Express REST-API. Beim Start wird das vordefinierte Datenbankschema und Seed-Daten über Prisma angewendet.
+
+| techradar_db
+| PostgreSQL Datenbank. Die Daten werden über ein Docker Volume persistiert.
 |===
 
 === Startvorgang

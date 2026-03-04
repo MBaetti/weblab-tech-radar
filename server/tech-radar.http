@@ -1,13 +1,15 @@
+### Wichtig: Wird der Stack nicht über Docker-Compose gestartet, so muss der Port auf 3000 geändert werden, damit die API erreichbar ist.
+
 ### Alle Technologien abrufen
-GET http://localhost:3000/api/technologies/
+GET http://localhost:4200/api/technologies/
 ###
 
 ### Technologie nach ID abrufen
-GET http://localhost:3000/api/technologies/1
+GET http://localhost:4200/api/technologies/1
 ###
 
 ### Neue Technologie erfassen
-POST http://localhost:3000/api/technologies/
+POST http://localhost:4200/api/technologies/
 Content-Type: application/json
 
 {
@@ -20,7 +22,7 @@ Content-Type: application/json
 ###
 
 ### Technologie aktualisieren
-PUT http://localhost:3000/api/technologies/1
+PUT http://localhost:4200/api/technologies/1
 Content-Type: application/json
 
 {
@@ -30,4 +32,4 @@ Content-Type: application/json
 ###
 
 ### Technologie löschen
-DELETE http://localhost:3000/api/technologies/1
+DELETE http://localhost:4200/api/technologies/1

@@ -6,12 +6,28 @@ ifndef::imagesdir[:imagesdir: ../images]
 [cols="1,2" options="header"]
 |===
 | Entscheidung | Motivation
-| Angular mit Angular Material | Komponentenbibliothek, welche den Aufwand für das UI-Design reduziert.
-| TypeScript | Typensicheres JavaScript, was Fehler reduziert und die Wartbarkeit erhöht.
-| Express | Leichtgewichtiges Framework für die Entwicklung einer REST-API.
-| Prisma ORM | Typensicherer Zugriff auf die PostgreSQL-Datenbank mit einheitlichem Schema, automatischer Client-Generierung und Seeding.
-| D3.js | Zur Erstellung von Grafiken wie dem Tech-Radar.
-| Docker Compose | Reproduzierbares Deployment und einfache Konfiguration aller auszuliefernden Komponenten (Client, Server, DB).
-| Nginx | SPA im Container bereitstellen und Anfragen an die REST-API im Server weiterleiten.
-| Vitest und Cypress | Frameworks für Unit- und E2E-Tests, um die korrekte Funktionalität der Anwendung sicherzustellen.
+
+| Angular mit Angular Material
+| Komponentenbibliothek, welche den Aufwand für das UI-Design reduziert.
+
+| TypeScript
+| Typensicheres JavaScript, was Fehler reduziert und die Wartbarkeit erhöht.
+
+| Express
+| Leichtgewichtiges Framework für die Entwicklung einer REST-API.
+
+| Prisma ORM
+| Typensicherer Zugriff auf die PostgreSQL-Datenbank mit einheitlichem Schema, automatischer Client-Generierung und Seeding.
+
+| D3.js
+| Zur Erstellung von Grafiken wie dem Tech-Radar.
+
+| Docker Compose
+| Reproduzierbares Deployment und einfache Konfiguration aller auszuliefernden Komponenten (Client, Server, DB).
+
+| Nginx
+| SPA im Container bereitstellen und Anfragen an die REST-API im Server weiterleiten.
+
+| Vitest und Cypress
+| Frameworks für Unit- und E2E-Tests, um die korrekte Funktionalität der Anwendung sicherzustellen.
 |===

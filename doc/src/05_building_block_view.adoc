@@ -31,10 +31,18 @@ Rel(server, db, "liest/schreibt", "Prisma ORM")
 [cols="1,2" options="header"]
 |===
 | Baustein | Verantwortung
-| Client | Angular SPA: Radar Viewer und Administration
-| Server | REST API mit CRUD Operationen auf Technologien und Datenbankzugriff über das Prisma ORM
-| Datenbank | Persistierung der Technologie Einträge
+
+| Client
+| Angular SPA: Radar Viewer und Administration
+
+| Server
+| REST API mit CRUD Operationen auf Technologien und Datenbankzugriff über das Prisma ORM
+
+| Datenbank
+| Persistierung der Technologie Einträge
 |===
+
+<<<
 
 === Ebene 2: Client
 
@@ -61,6 +69,8 @@ Rel(techForm, apiService, "ruft auf")
 
 @enduml
 ----
+
+<<<
 
 === Ebene 2: Server
 

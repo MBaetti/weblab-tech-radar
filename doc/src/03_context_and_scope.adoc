@@ -8,8 +8,13 @@ ifndef::imagesdir[:imagesdir: ../images]
 [cols="1,2,2" options="header"]
 |===
 | Akteur | Tätigkeiten | Ausgabe
-| CTO / Tech-Lead | Technologien erfassen, ändern, publizieren | Liste aller erfassten/publizierten Technologien
-| Mitarbeiter | Technologie-Radar aufrufen | Publizierte Technologien in Form eines Tech-Radars
+| CTO / Tech-Lead
+| Technologien erfassen, ändern, publizieren
+| Liste aller erfassten/publizierten Technologien
+
+| Mitarbeiter
+| Technologie-Radar aufrufen
+| Publizierte Technologien in Form eines Tech-Radars
 |===
 
 Das System hat keine externen Nachbarsysteme. Sämtliche Daten werden intern verwaltet.
@@ -19,7 +24,16 @@ Das System hat keine externen Nachbarsysteme. Sämtliche Daten werden intern ver
 [cols="2,1,2" options="header"]
 |===
 | Kanal | Protokoll | Beschreibung
-| Browser -> Nginx | HTTP | Angular SPA im Docker-Container bereitstellen und Anfragen an die REST-API weiterleiten
-| Nginx -> Express-Server | HTTP | Requests im JSON-Format auf der REST-API unter `/api/technologies` mit CRUD-Operationen auf Technologien
-| Express-Server → PostgreSQL | TCP/Prisma ORM | Datenbankzugriff über den Prisma Client
+
+| Browser -> Nginx
+| HTTP
+| Angular SPA im Docker-Container bereitstellen und Anfragen an die REST-API weiterleiten
+
+| Nginx -> Express-Server
+| HTTP
+| Requests im JSON-Format auf der REST-API unter `/api/technologies` mit CRUD-Operationen auf Technologien
+
+| Express-Server → PostgreSQL
+| TCP/Prisma ORM
+| Datenbankzugriff über den Prisma Client
 |===

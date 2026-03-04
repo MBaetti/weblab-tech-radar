@@ -12,6 +12,6 @@ Der Weblab Tech-Radar soll:
 * eine PostgreSQL Datenbank zur Datenhaltung verwenden.
 * vollständig über Docker Compose containerisiert und auslieferbar sein.
 * über .env-Dateien konfigurierbar sein.
-* mit Vitest für Unit-Tests und Cypress für E2E-Tests automatisiert getestet werden.
+* mi[Details]t Vitest für Unit-Tests und Cypress für E2E-Tests automatisiert getestet werden.
 * nach arc42 dokumentiert werden.
 * rechtzeitig zum Abgabetermin am 6. März 2026 mit den geforderten Dokumenten abgegeben werden.

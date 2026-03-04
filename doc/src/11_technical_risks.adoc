@@ -3,24 +3,40 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-technical-risks]]
 == Risiken und technische Schulden
 
-ifdef::arc42help[]
-[role="arc42help"]
-****
-.Inhalt
-Eine nach Prioritäten geordnete Liste der erkannten Architekturrisiken und/oder technischen Schulden.
+=== Risiken
 
-.Motivation
-"Risikomanagement ist Projektmanagement für Erwachsene."
--- Tim Lister, Atlantic Systems Guild
+[cols="1,1,2" options="header"]
+|===
+| Risiko | Priorität | Massnahme
 
-Unter diesem Motto sollten Sie Architekturrisiken und/oder technische Schulden gezielt ermitteln, bewerten und Ihren Management-Stakeholdern (z.B. Projektleitung, Product-Owner) transparent machen.
+| Keine Authentifizierung
+| Hoch
+| Die Technologie-Radar Administration ist aktuell ohne Login zugänglich. Für einen produktiven Betrieb muss eine Authentifizierung z.B. mit Auth0 integriert werden.
 
-.Form
-Liste oder Tabelle von Risiken und/oder technischen Schulden, eventuell mit vorgeschlagenen Maßnahmen zur Risikovermeidung, Risikominimierung oder dem Abbau der technischen Schulden.
+| Auditing fehlt
+| Mittel
+| Es werden keine Änderungen an den Technologie-Einträgen protokolliert. Ein Log sollte Informationen zu Änderungszeitpunkt, Benutzer (im Zusammenhang mit Risiko1) und Art der Änderung aufzeichnen.
 
+| Kein HTTPS
+| Mittel
+| Die Kommunikation zwischen Client und Server erfolgt zurzeit unverschlüsselt über HTTP. Für den produktiven Betrieb sollte HTTPS mit einem gültigen Zertifikat eingerichtet werden.
 
-.Weiterführende Informationen
+| Kein Backup-Konzept
+| Mittel
+| Die PostgreSQL-Daten liegen in einem Docker-Volume ohne automatisiertes Backup.
+|===
 
-Siehe https://docs.arc42.org/section-11/[Risiken und technische Schulden] in der online-Dokumentation (auf Englisch!).
-****
-endif::arc42help[]
+=== Technische Schulden
+
+[cols="1,1,2" options="header"]
+|===
+| Schuld | Priorität | Beschreibung
+
+| Keine automatisch generierte API-Dokumentation
+| Niedrig
+| Die REST-API ist nicht über OpenAPI/Swagger dokumentiert. Dies wurde bewusst aufgrund mangelnder Zeit zurückgestellt.
+
+| Keine CI/CD-Pipeline
+| Mittel
+| Build, Tests und Deployment werden manuell ausgeführt. Eine automatisierte Pipeline würde dies vereinfachen.
+|===

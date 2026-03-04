@@ -1,10 +1,12 @@
 # WeblabTechRadar
 
-Tech-Radar im Rahmen des Moduls Web Programming Lab an der HSLU Informatik im Herbstsemester 2025.
+*Author:* Maurice Bättig
+
+*Inhalt:* Tech-Radar im Rahmen des Moduls Web Programming Lab an der HSLU Informatik im Herbstsemester 2025.
 
 # Dokumentation
 
-**arc42 Vorlage mit asciidoc**
+**arc42 mit asciidoc**
 
 Die Dokumentation zu diesem Projekt befindet sich unter /doc.
 
@@ -16,7 +18,7 @@ Die Konfiguration der Umgebung wird über .env-Dateien gesteuert. Es gibt zwei .
 
 **Client**
 
-Unter `./client/.env`
+Unter `.\client\.env`
 
 ```env
 # Client
@@ -25,7 +27,7 @@ CLIENT_PORT=4200
 
 **Server**
 
-Unter `./server/.env`
+Unter `.\server\.env`
 
 ```env
 # Server
@@ -59,11 +61,11 @@ Die API ist dadurch unter `http://localhost:4200/api/` verfügbar.
 
 # DB
 
-**PostgreSQL**
+PostgreSQL
 
 ## DB separat als Docker-Container hochfahren
 
-Dies generiert zusätzlich den Prisma-Client neu und lädt/seedet die Datenbank mit den Daten aus prisma\seed.ts.
+Dies generiert zusätzlich den Prisma-Client neu und lädt/seedet die Datenbank mit den Daten aus `.\server\prisma\seed.ts`.
 
 ```bash
 cd server
@@ -89,13 +91,7 @@ cd ..
 
 # Server
 
-**Node.js**
-
-*Version:* v24.13.0
-
-**Express**
-
-API-Routing und Middleware.
+Node.js, Express, Prisma
 
 ## Server separat hochfahren
 
@@ -109,9 +105,7 @@ Danach läuft der Server unter `http://localhost:3000/`.
 
 # Client
 
-**Angular**
-
-*Version:* 21.1.2
+Angular
 
 ## Client separat hochfahren
 
@@ -207,20 +201,27 @@ Ein interaktives File befindet sich unter `./server/tech-radar.http`
 **Client**
 
 ```bash
-cd client; ng test; cd ..
+cd client
+ng test
+cd ..
 ```
 
 **Server**
 
 ```bash
-cd server; npm test; cd ..
+cd server
+npm test
+cd ..
 ```
 
 ## End-to-End-Tests mit Cypress
 
 ```bash
-cd client; npx cypress run; cd ..
+cd client
+npx cypress run
+cd ..
 ```
 
 **Wichtig**
 - Dazu muss der ganze Stack hochgefahren sein. Entweder einzeln (Client, Server, DB) oder mittels Docker-Compose.
+- Die Ausführung direkt über das Readme funktioniert nicht zuverlässig. Ich empfehle deshalb den Befehl direkt im Terminal auszuführen.

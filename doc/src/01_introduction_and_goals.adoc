@@ -3,9 +3,15 @@ ifndef::imagesdir[:imagesdir: ../images]
 [[section-introduction-and-goals]]
 ==	Einführung und Ziele
 
+*Author:* Maurice Bättig
+
+*Datum:* 06.03.2026
+
+Zum original https://github.com/web-programming-lab/web-programming-lab-projekt/tree/main[Projektauftrag]
+
 === Aufgabenstellung
 
-Der Technologie-Radar ist ein passendes Werkzeug für Technologie-Management in einem Unternehmen, für ein Produkt-Team oder auch für sich als Softwarearchitekt oder Software Engineer. Es gibt bereits verschiedene Umsetzungen von Technologie-Radare. Das prominenteste Beispiel ist der [Technology Radar](https://www.thoughtworks.com/de-de/radar) von ThoughtWorks.
+Der Technologie-Radar ist ein passendes Werkzeug für Technologie-Management in einem Unternehmen, für ein Produkt-Team oder auch für sich als Softwarearchitekt oder Software Engineer. Es gibt bereits verschiedene Umsetzungen von Technologie-Radare. Das prominenteste Beispiel ist der https://www.thoughtworks.com/de-de/radar[Technology Radar] von ThoughtWorks.
 
 Dabei werden die einzelnen Technologien jeweils in sogn. vier Quadranten eingeordnet (Kategorien wie z.B. *Techniques*, *Tools*, *Platforms*, *Languages & Frameworks*). Die Maturität wird über sogn. Ringe eingestuft (*Assess*, *Trial*, *Adopt*, *Hold*).
 
@@ -117,7 +123,7 @@ Als Mitarbeiter kann ich mich am Technologie-Radar-Viewer anmelden, damit ich di
 
 * Der **Technologie-Radar-Viewer** soll neben der Desktop-Ansicht, auch für die Mobile/Tablet-Ansicht optimiert sein.
 * Der **Technologie-Radar-Viewer** soll bei einer 4G-Verbindung innerhalb 1s geladen werden.
-    ** Chrome Network-Throttling: _Fast 4G_ [Details](https://github.com/ChromeDevTools/devtools-frontend/blob/817e20b1b51181ddc1da58c5b339c6eaf34b16cd/front_end/core/sdk/NetworkManager.ts#L452)
+    ** Chrome Network-Throttling: _Fast 4G_ https://github.com/ChromeDevTools/devtools-frontend/blob/817e20b1b51181ddc1da58c5b339c6eaf34b16cd/front_end/core/sdk/NetworkManager.ts#L452[Details]
     ** Others: 9 Mbit/s down, 1.5 Mbit/s up, 60ms Latency, 0% Package-Loss
 * Sämtliche Anmeldungen an die **Technologie-Radar-Administration** werden aufgezeichnet.
 * Die Funktionalitäten sollen mittels sinnvollen automatisierten **Unit/Integration-Tests** überprüft werden.
@@ -133,6 +139,10 @@ Als Mitarbeiter kann ich mich am Technologie-Radar-Viewer anmelden, damit ich di
 
 [cols="1,1,1,2" options="header"]
 |===
-| Name |Rolle |Kontakt |Erwartungshaltung
-| Dominik Witschard | _Modulverantwortlicher_ | _https://github.com/dwitschard[Github]_ | _Erfüllen aller funktionaler und nicht funktionaler Anforderungen._
+| Name | Rolle | Kontakt | Erwartungshaltung
+
+| Dominik Witschard
+| _Modulverantwortlicher_
+| _https://github.com/dwitschard[Github]_
+| _Erfüllen aller funktionaler und nicht funktionaler Anforderungen._
 |===

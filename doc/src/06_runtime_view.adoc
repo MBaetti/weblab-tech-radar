@@ -32,6 +32,8 @@ Der Client sendet die Formulardaten als JSON an die REST-API.
 Der Controller validiert alle Pflichtfelder und prüft, ob der Technologiename eindeutig ist bzw. ob er bereits existiert.
 Bei ungültigen Daten wird ein `400 Bad Request` zurückgegeben, bei Duplikaten ein `409 Conflict`. Schlägt die Übermittlung oder die Validierung fehl, so zeigt der Client eine entsprechende Fehlermeldung beim Formular an.
 
+<<<
+
 === Technologie publizieren
 
 [plantuml, target=runtime-publish, format=png]
@@ -61,6 +63,8 @@ client --> user : Publikationsdatum anzeigen
 Beim Publizieren sendet der Client einen PUT-Request mit `published: true` sowie den Pflichtfeldern Ring und Einordnung.
 Der Controller prüft die Eingaben und setzt bei erstmaliger Publikation automatisch das `publicationDate`.
 
+<<<
+
 === Technologien im Radar anzeigen
 
 [plantuml, target=runtime-view-radar, format=png]
@@ -88,6 +92,8 @@ client --> user : Radar Visualisierung
 
 Beim Öffnen des Viewers lädt der Client alle Technologien über die REST-API.
 Anschliessend werden nur publizierte Einträge gefiltert und als Radar dargestellt.
+
+<<<
 
 === Technologie löschen
 

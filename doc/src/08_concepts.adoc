@@ -36,6 +36,12 @@ Auf dem Server fängt eine zentrale Error-Handler-Middleware alle nicht abgefang
 [cols="1,1,2" options="header"]
 |===
 | Ebene | Framework | Beschreibung
-| Unit | Vitest | Automatisierte Tests auf Client und Server mit Mocks
-| E2E | Cypress | Automatisierte Tests bei laufendem Stack auf dem UI
+
+| Unit
+| Vitest
+| Automatisierte Tests auf Client und Server mit Mocks
+
+| E2E
+| Cypress
+| Automatisierte Tests bei laufendem Stack auf dem UI
 |===

@@ -9,9 +9,13 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [cols="1,1" options="header"]
 |===
-|Tätigkeit |Befehl
-|Docker-Compose starten |`docker-compose up`
-|Docker-Compose mit force Build starten |`docker-compose up --build`
+| Tätigkeit | Befehl
+
+| Docker-Compose starten
+| `docker-compose up`
+
+| Docker-Compose mit force Build starten
+| `docker-compose up --build`
 |===
 
 === Client
@@ -20,21 +24,35 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [cols="1,1" options="header"]
 |===
-|Tätigkeit |Befehl
-|Docker-Image für Client erstellen |`docker build -t techradar-client .`
-|Docker-Container für Client starten |`docker run -d -p 4200:80 --name techradar-client techradar-client`
+| Tätigkeit | Befehl
+
+| Docker-Image für Client erstellen
+| `docker build -t techradar-client .`
+
+| Docker-Container für Client starten
+| `docker run -d -p 4200:80 --name techradar-client techradar-client`
 |===
 
 ==== Angular
 
 [cols="1,1" options="header"]
 |===
-|Tätigkeit |Befehl
-|Angular-Entwicklungsserver starten |`ng serve`
-|Komponente generieren |`ng generate component <component-name>`
-|Service generieren |`ng generate service <service-name>`
-|Tests ausführen |`ng test`
-|End-to-End-Tests ausführen |`ng e2e`
+| Tätigkeit | Befehl
+
+| Angular-Entwicklungsserver starten
+| `ng serve`
+
+| Komponente generieren
+| `ng generate component <component-name>`
+
+| Service generieren
+| `ng generate service <service-name>`
+
+| Tests ausführen
+| `ng test`
+
+| End-to-End-Tests ausführen
+| `ng e2e`
 |===
 
 === Server
@@ -43,39 +61,61 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [cols="1,1" options="header"]
 |===
-|Tätigkeit |Befehl
-|Docker-Image für Server erstellen |`docker build -t techradar-server .`
-|Docker-Container für Server starten |`docker run -d -p 4200:80 --name techradar-server techradar-server`
+| Tätigkeit | Befehl
+
+| Docker-Image für Server erstellen
+| `docker build -t techradar-server .`
+
+| Docker-Container für Server starten
+| `docker run -d -p 4200:80 --name techradar-server techradar-server`
 |===
 
 ==== Node.js
 
 [cols="1,1" options="header"]
 |===
-|Tätigkeit |Befehl
-|Dependencies installieren |`npm install`
-|Node.js-Server starten |`npm start`
+| Tätigkeit | Befehl
+
+| Dependencies installieren
+| `npm install`
+
+| Node.js-Server starten
+| `npm start`
 |===
 
 ==== PostgreSQL
 
 [cols="1,1" options="header"]
 |===
-|Tätigkeit |Befehl
-|PostgreSQL-Image herunterladen |`docker pull postgres`
-|PostgreSQL-Docker-Container starten |`docker run --name techradar -d -p 5432:5432 -e POSTGRES_PASSWORD={passwort} postgres`
+| Tätigkeit | Befehl
+
+| PostgreSQL-Image herunterladen
+| `docker pull postgres`
+
+| PostgreSQL-Docker-Container starten
+| `docker run --name techradar -d -p 5432:5432 -e POSTGRES_PASSWORD={passwort} postgres`
 |===
 
 ==== Prisma
 
 [cols="1,1" options="header"]
 |===
-|Tätigkeit |Befehl
-|Prisma Client generieren |`npx prisma generate`
-|Schema-Status prüfen |`npx prisma validate`
-|Datenbank-Schema initialisieren |`npx prisma db push`
-|Datenbank-Seed ausführen |`npx prisma db seed`
-|Prisma Studio (GUI) öffnen |`npx prisma studio`
+| Tätigkeit | Befehl
+
+| Prisma Client generieren
+| `npx prisma generate`
+
+| Schema-Status prüfen
+| `npx prisma validate`
+
+| Datenbank-Schema initialisieren
+| `npx prisma db push`
+
+| Datenbank-Seed ausführen
+| `npx prisma db seed`
+
+| Prisma Studio (GUI) öffnen
+| `npx prisma studio`
 |===
 
 === Testing
@@ -84,16 +124,24 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 [cols="1,1" options="header"]
 |===
-|Tätigkeit |Befehl
-|Unit-Tests auf dem Client ausführen |`ng test` (führt intern `vitest run` aus)
-|Unit-Tests auf dem Server ausführen |`npm test` (führt intern `vitest run` aus)
+| Tätigkeit | Befehl
+
+| Unit-Tests auf dem Client ausführen
+| `ng test` (führt intern `vitest run` aus)
+
+| Unit-Tests auf dem Server ausführen
+| `npm test` (führt intern `vitest run` aus)
 |===
 
 ==== e2e mit Cypress
 
 [cols="1,1" options="header"]
 |===
-|Tätigkeit |Befehl
-|Cypress-UI öffnen |`cypress open`
-|Cypress-Tests ausführen |`cypress run`
+| Tätigkeit | Befehl
+
+| Cypress-UI öffnen
+| `cypress open`
+
+| Cypress-Tests ausführen
+| `cypress run`
 |===

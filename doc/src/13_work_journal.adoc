@@ -6,18 +6,67 @@ ifndef::imagesdir[:imagesdir: ../images]
 [cols="1,1,3" options="header"]
 |===
 |Datum |Stunden | Tätigkeiten
-|04.02.2026 |2 |Repo mit Client(angular) und Dokumentation(arc42 mit asciidoc) initialisiert
-|05.02.2026 |3 |Server initialisiert (Express, Node.js), erste Endpunkte erstellt und e2e-Tests auf dem Client initialisiert (Cypress)
-|06.02.2026 |4 |Form, um Technologien zu erfassen, erstellt und erste Validierungen implementiert.
-|07.02.2026 |4 |Prisma initial auf dem Server implementiert.
-|08.02.2026 |4 |Eine Liste, um erfasste Technologien anzuzeigen, erstellt und Technologieradar implementiert.
-|13.02.2026 |8 |Prisma mit PostgreSQL verbunden und erste Datenbankabfragen(get) für Viewer(Radar) und Manager(List) implementiert.
-|14.02.2026 |4 |Felder Erfassungsdatum, Änderungsdatum und Publikationsdatum in Technologieeintrag für traceability auf Client und Server ergänzt
-|20 & 21.02.2026 |10 |Verbesserungen in der Responsibility, Datenbankabfragen, Error-Handling und des Stylings. Technologiekarten (erfasste Technologien) mit Dialog (zum Publizieren) und der Möglichkeit, Technologien zu löschen, erstellt.
-|25.02.2026 |8 | Stack mit globalen Env-Variablen dockerisiert. Dazu Reverse Proxy mit Nginx integriert.
-|28.02.2026 |6 | Versuch, Auth0 zu integrieren. Ich habe mich aufgrund der fortgeschrittenen Zeit ab hier auf das Testing und die Dokumentation konzentriert.
-|01.03.2026 |10 | Unit-Tests für Server und Client mittels Vitest implementiert sowie e2e-Tests mittels Cypress erweitert, Env-Variablen von Client und Server separiert, README überarbeitet, Fazit geschrieben, Optimierung des Compose-Stack und der Initialisierung der DB mittels Prisma.
-|02.03.2026 |3 |Kapitel 1-5 dokumentiert
-|02.03.2026 |3 |Kapitel 5-9 dokumentiert
-|*Total* |*69* |*Von geforderten 60 Stunden*
+|04.02.2026
+| 2
+| Repo mit Client(angular) und Dokumentation(arc42 mit asciidoc) initialisiert
+
+|05.02.2026
+| 3
+| Server initialisiert (Express, Node.js), erste Endpunkte erstellt und e2e-Tests auf dem Client initialisiert (Cypress)
+
+|06.02.2026
+| 4
+| Form, um Technologien zu erfassen, erstellt und erste Validierungen implementiert.
+
+|07.02.2026
+| 4
+| Prisma initial auf dem Server implementiert.
+
+|08.02.2026
+| 4
+| Eine Liste, um erfasste Technologien anzuzeigen, erstellt und Technologieradar implementiert.
+
+|13.02.2026
+| 8
+| Prisma mit PostgreSQL verbunden und erste Datenbankabfragen(get) für Viewer(Radar) und Manager(List) implementiert.
+
+|14.02.2026
+| 4
+| Felder Erfassungsdatum, Änderungsdatum und Publikationsdatum in Technologieeintrag für traceability auf Client und Server ergänzt
+
+|20 & 21.02.2026
+| 10
+| Verbesserungen in der Responsibility, Datenbankabfragen, Error-Handling und des Stylings. Technologiekarten (erfasste Technologien) mit Dialog (zum Publizieren) und der Möglichkeit, Technologien zu löschen, erstellt.
+
+|25.02.2026
+| 8
+| Stack mit globalen Env-Variablen dockerisiert. Dazu Reverse Proxy mit Nginx integriert.
+
+|28.02.2026
+| 6
+| Versuch, Auth0 zu integrieren. Ich habe mich aufgrund der fortgeschrittenen Zeit ab hier auf das Testing und die Dokumentation konzentriert.
+
+|01.03.2026
+| 10
+| Unit-Tests für Server und Client mittels Vitest implementiert sowie e2e-Tests mittels Cypress erweitert, Env-Variablen von Client und Server separiert, README überarbeitet, Fazit geschrieben, Optimierung des Compose-Stack und der Initialisierung der DB mittels Prisma.
+
+|02.03.2026
+| 3
+| Kapitel 1-5 dokumentiert
+
+|02.03.2026
+| 3
+| Kapitel 5-9 dokumentiert
+
+|03.03.2026
+| 3
+| Kapitel 10–13 dokumentiert, abschließende Überarbeitung der Dokumentation, Vorbereitung Abgabe
+
+|04.03.2026
+| 1
+| Verifikation der Abgabe durch einen Kollegen, letzte Korrekturen, Abgabe
+
+| *Total*
+| *73*
+| *Von geforderten 60 Stunden*
 |===

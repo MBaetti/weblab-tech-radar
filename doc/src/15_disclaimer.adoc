@@ -1,6 +1,6 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
-[[section-work-journal]]
+[[section-disclaimer]]
 == Haftungsausschluss
 
 === Nutzung von generativer künstlicher Intelligenz
